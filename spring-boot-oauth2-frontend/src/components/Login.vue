@@ -7,7 +7,7 @@
 		</div>
 		<div class="form-group">
 			<label for="userPassword">Password</label>
-			<input class="form-control" id="userPassword" v-model="password" placeholder="Your password">
+			<input class="form-control" id="userPassword" type="password" v-model="password" placeholder="Your password">
 		</div>
 		<button class="btn btn-primary" v-on:click="login">login</button>
 	</div>

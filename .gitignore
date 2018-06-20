@@ -8,9 +8,11 @@
 .DS_Store
 
 #Gradle
-/target
-/build
-/bin
+target/
+build/
+bin/
+.classpath
+.gradle
 .settings/
 
 #VUE

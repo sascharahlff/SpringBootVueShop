@@ -15,8 +15,8 @@ export default {
 			baseURL: "http://localhost:8081/",
 			url: "oauth/token",
 			auth: {
-				username: "user",
-				password: "foo"
+				username: "itemis",
+				password: "secret"
 			},
 			headers: {
 				"Access-Control-Allow-Origin": "http://localhost:8080",

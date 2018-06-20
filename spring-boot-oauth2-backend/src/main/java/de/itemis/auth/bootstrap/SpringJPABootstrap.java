@@ -30,22 +30,22 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 		
 		User user = new User();
 		user.setUsername("foo");
+		user.setPassword("bar");
+		user.setAccountExpired(true);
+		user.setAccountLocked(true);
+		user.setCredentialsExpired(true);
+		user.setEnabled(true);
+		user.setPasswordHash(encoder.encode("bar"));
+		userRepository.save(user);
+
+		user = new User();
+		user.setUsername("srahlff");
 		user.setPassword("password");
 		user.setAccountExpired(true);
 		user.setAccountLocked(true);
 		user.setCredentialsExpired(true);
 		user.setEnabled(true);
 		user.setPasswordHash(encoder.encode("password"));
-		userRepository.save(user);
-
-		user = new User();
-		user.setUsername("blub");
-		user.setPassword("foo");
-		user.setAccountExpired(true);
-		user.setAccountLocked(true);
-		user.setCredentialsExpired(true);
-		user.setEnabled(true);
-		user.setPasswordHash(encoder.encode("foo"));
 		userRepository.save(user);
 	}
 	

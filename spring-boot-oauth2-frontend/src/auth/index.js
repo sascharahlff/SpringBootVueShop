@@ -16,7 +16,7 @@ export default {
 			baseURL: "http://localhost:8081/",
 			url: "oauth/token",
 			auth: {
-				username: "spring-security-oauth2-read-client",
+				username: "user",
 				password: "foo"
 			},
 			headers: {

@@ -6,7 +6,7 @@ Example Webshop Application (Spring Boot, Hibernate, OAuth2, Vue.js)
 ## Prerequisites:
 - Gradle
 - Docker (PostgreSQL)
-- Webpack     
+- Webpack
 
 ## Run Application
 **spring-boot-oauth2-backend:**  

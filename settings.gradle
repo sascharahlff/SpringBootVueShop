@@ -1,3 +1,2 @@
-include 'WebShopBackend'
-include 'WebShopFrontend'
-include 'WebShopMiddleware'
+include 'spring-boot-oauth2-backend'
+include 'spring-boot-oauth2-frontend'

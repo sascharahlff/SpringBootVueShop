@@ -1,17 +1,49 @@
 <template>
-	<div class="col-sm-4 col-sm-offset-4">
-		<h2>Log in</h2>
-		<button class="btn btn-primary" @click="login()">Log in</button>
+	<div class="container" xclass="col-sm-4 col-sm-offset-4">
+		<div v-if="error != ''" class="alert alert-danger" role="alert">{{ error }}</div>
+		<div class="form-group">
+			<label for="userLogin">Login</label>
+			<input class="form-control" id="userLogin" v-model="user" placeholder="Your login name">
+		</div>
+		<div class="form-group">
+			<label for="userPassword">Password</label>
+			<input class="form-control" id="userPassword" v-model="password" placeholder="Your password">
+		</div>
+		<button class="btn btn-primary" v-on:click="login">login</button>
 	</div>
 </template>
 
 <script>
+import {router} from '../main'
 import auth from '../auth'
 
 export default {
+	data() {
+		return {
+			user: "",
+			password: "",
+			error: ""
+		}
+	},
 	methods: {
 		login: function() {
-			auth.login(this);
+			// Async call
+			auth.login(this.user, this.password)
+			.then((response) => {
+				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
+					localStorage.setItem("sessionToken", response.data.access_token);
+					auth.user.authenticated = true;
+					this.error = "";
+					router.push("/home")
+				}
+				else {
+					this.error = "Bad credentials";
+					auth.user.authenticated = false;
+				}
+			}).catch ((e) => {
+				this.error = "Bad credentials";
+				auth.user.authenticated = false;
+			});
 		}
 	}
 }

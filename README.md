@@ -8,7 +8,7 @@ Example Webshop Application (Spring Boot, Hibernate, OAuth2, Vue.js)
 - Docker (PostgreSQL)
 - Webpack     
 
-##Run Application
+## Run Application
 **spring-boot-oauth2-backend:**  
 spring-boot-oauth2-backend/docker docker-compose up  
 Run Application.java  

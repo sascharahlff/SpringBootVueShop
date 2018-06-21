@@ -20,7 +20,7 @@ localhost:8080
 
 ## Authentication
 **Get Token:**  
-curl user:secret@localhost:8081/oauth/token -d "grant_type=password&username=foo&password=bar"
+curl itemis:secret@localhost:8081/oauth/token -d "grant_type=password&username=foo&password=bar"
 
 ## Accessing secured endpoints
-curl -i -H "Accept: application/json" -H "Authorization: Bearer YOUR_TOKEN" -X GET http://localhost:8081/secured/clients
+curl -i -H "Accept: application/json" -H "Authorization: Bearer YOUR_TOKEN" -X GET http://localhost:8081/secured/products

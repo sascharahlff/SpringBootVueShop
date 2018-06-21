@@ -1,18 +1,11 @@
 <template>
 	<div class="form-inline my-2 my-lg-0">
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
-
-		<product-item></product-item>
-
+	
 		<ul class="list-group mt-5">
-			
-			<li class="list-group-item mt-5">
-				<div class="foo">
-				Cras justo odio<br>
-				bla,<br>
-				Price
-				</div>
-			</li>
+			<!-- <li v-for="product in this.products" v-bind:key="product.id">{{ product.id }}</li> -->
+			<!-- <product-item v-repeat="this.products" v-for="product in products" v-bind:key="product.id" v-bind:id="product.id" /> -->
+			<!-- <product-item v-for="product in products" v-bind:key="product.id" v-bind:id="myId" /> -->
 		</ul>
 	</div>
 </template>
@@ -22,22 +15,16 @@
 import auth from '../auth'
 import services from '../services'
 import ProductItem from './ProductItem.vue'
-// import Vue from 'vue'
-
-// Vue.component('button-counter', {
-// 	template: '<h1>Compoonent</h1>'
-// })
 
 export default {
-	// install(Vue, options) {
-	//  	Vue.component('product-item', ProductItem)
-	// },
 	components: {
     	'product-item': ProductItem,
   	},
 	data() {
 		return {
 			searchString: "",
+			myId: 1,
+			products: [],
 			timer: null
 		}
 	},
@@ -67,18 +54,28 @@ export default {
 			var sessionToken = localStorage.getItem("sessionToken");
 
 			if (sessionToken != undefined) {
+				this.products = [];
+
 				services.searchProducts(this.searchString, sessionToken)
 				.then((response) => {
+					var items = [];
+
 					if (response != undefined) {
 						response.data.forEach(element => {
-							console.log(element.id);
+							var item = {
+								id: element.id,
+								name: element.name
+							};
+							items.push(item);
 						});
 					}
 					else {
 						console.log("error");
 					}
+
+					this.products = items;
 				}).catch ((e) => {
-					console.log("exception");
+					console.log("exception: " + e);
 				});
 			}
 		}

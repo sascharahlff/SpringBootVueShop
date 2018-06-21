@@ -1,5 +1,5 @@
 <template>
-	<div class="container" xclass="col-sm-4 col-sm-offset-4">
+	<div class="container">
 		<div v-if="error != ''" class="alert alert-danger" role="alert">{{ error }}</div>
 		<div class="form-group">
 			<label for="userLogin">Login</label>
@@ -7,7 +7,7 @@
 		</div>
 		<div class="form-group">
 			<label for="userPassword">Password</label>
-			<input class="form-control" id="userPassword" v-model="password" placeholder="Your password">
+			<input class="form-control" id="userPassword" type="password" v-model="password" placeholder="Your password">
 		</div>
 		<button class="btn btn-primary" v-on:click="login">login</button>
 	</div>
@@ -20,8 +20,8 @@ import auth from '../auth'
 export default {
 	data() {
 		return {
-			user: "",
-			password: "",
+			user: "foo",
+			password: "bar",
 			error: ""
 		}
 	},
@@ -33,6 +33,7 @@ export default {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					auth.user.authenticated = true;
+					localStorage.removeItem("basketItems");
 					this.error = "";
 					router.push("/home")
 				}

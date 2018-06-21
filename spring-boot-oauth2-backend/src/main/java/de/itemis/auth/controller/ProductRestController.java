@@ -8,31 +8,26 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import de.itemis.auth.domain.Client;
-import de.itemis.auth.repository.ClientRepository;
+import de.itemis.auth.domain.Product;
+import de.itemis.auth.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/secured")
-public class ClientRestController {
-	private static final String CLIENT_PATH = "/clients";
+public class ProductRestController {
+	private static final String PRODUCTS_PATH = "/products";
 
 	@Autowired
-	ClientRepository clientRepository;
+	ProductRepository productRepository;
 
 	@CrossOrigin(origins = "http://localhost:8080")
-	@RequestMapping(value = CLIENT_PATH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = PRODUCTS_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	public @ResponseBody List<Client> getClients() {
-		return clientRepository.findAll();
+	public @ResponseBody List<Product> getProducts(@RequestParam("search") String search) {
+		return productRepository.search(search);
 	}
-
-	// @CrossOrigin(origins = "http://localhost:8080")
-	// @RequestMapping(value = CLIENT_PATH, method = RequestMethod.GET)
-	// public List<Client> getAllClients() {
-	// return clientRepository.findAll();
-	// }
 }

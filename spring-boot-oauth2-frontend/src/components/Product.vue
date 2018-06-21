@@ -3,7 +3,6 @@
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
-			<!-- <product-item v-for="product in this.products" v-bind:key="product.id" v-bind:bla="product.name" v-bind:wixx="product.id"></product-item> -->
 			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product"></product-item>
 		</ul>
 	</div>
@@ -58,6 +57,8 @@ export default {
 				services.searchProducts(this.searchString, sessionToken)
 				.then((response) => {
 					var items = [];
+
+					console.log(response);
 
 					if (response != undefined) {
 						response.data.forEach(element => {

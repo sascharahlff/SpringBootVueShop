@@ -1,5 +1,5 @@
 <template>
-	<div class="container" xclass="col-sm-4 col-sm-offset-4">
+	<div class="container">
 		<div v-if="error != ''" class="alert alert-danger" role="alert">{{ error }}</div>
 		<div class="form-group">
 			<label for="userLogin">Login</label>
@@ -20,8 +20,8 @@ import auth from '../auth'
 export default {
 	data() {
 		return {
-			user: "",
-			password: "",
+			user: "foo",
+			password: "bar",
 			error: ""
 		}
 	},

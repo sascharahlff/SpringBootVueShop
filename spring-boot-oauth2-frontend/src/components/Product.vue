@@ -3,9 +3,8 @@
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
-			<li v-for="product in this.products" v-bind:key="product.id">{{ product.id }}</li>
-			<!-- <product-item v-repeat="this.products" v-for="product in products" v-bind:key="product.id" v-bind:id="product.id" /> -->
-			<!-- <product-item v-for="product in products" v-bind:key="product.id" v-bind:id="myId" /> -->
+			<!-- <product-item v-for="product in this.products" v-bind:key="product.id" v-bind:bla="product.name" v-bind:wixx="product.id"></product-item> -->
+			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product"></product-item>
 		</ul>
 	</div>
 </template>
@@ -64,7 +63,11 @@ export default {
 						response.data.forEach(element => {
 							var item = {
 								id: element.id,
-								name: element.name
+								productNo: element.productNo,
+								name: element.name,
+								description: element.description,
+								image: element.image,
+								price: element.price
 							};
 							items.push(item);
 						});

@@ -1,13 +1,16 @@
 <template>
-	<div class="form-inline my-2 my-lg-0">
+	<div class="container">
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
 			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product"></product-item>
 		</ul>
+
+		<button type="button" class="btn btn-primary">
+			Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
+		</button>
 	</div>
 </template>
-
 
 <script>
 import auth from '../auth'
@@ -21,8 +24,8 @@ export default {
 	data() {
 		return {
 			searchString: "",
-			myId: 1,
 			products: [],
+			basketItems: [],
 			timer: null
 		}
 	},
@@ -30,7 +33,15 @@ export default {
 		searchString: function(str) {
 			// Start search, when user end typing
 			this.startTimer();
-		}		
+		},
+		localStorage: function() {
+			console.log
+			var items = localStorage.getItem("basketItems");
+
+			if (items != undefined) {
+				basketItems = JSON.parse(items);
+			}
+		}
 	},
 	methods: {
 		startTimer: function() {
@@ -57,8 +68,6 @@ export default {
 				services.searchProducts(this.searchString, sessionToken)
 				.then((response) => {
 					var items = [];
-
-					console.log(response);
 
 					if (response != undefined) {
 						response.data.forEach(element => {

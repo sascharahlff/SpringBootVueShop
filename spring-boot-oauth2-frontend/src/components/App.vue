@@ -24,6 +24,7 @@
 		created: function() {
 			// Delete session token on start 
 			localStorage.removeItem("sessionToken");
+			localStorage.removeItem("basketItems");
 			// Open Login template
 			router.push("/login");
 		}

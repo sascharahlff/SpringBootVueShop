@@ -6,7 +6,7 @@ export default {
 		formData.append('search', search);
 
 		var json = await axios({
-			method: "GET",
+			method: "POST",
 			baseURL: "http://localhost:8081/",
 			url: "secured/products",
 			headers: {

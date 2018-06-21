@@ -33,6 +33,7 @@ export default {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					auth.user.authenticated = true;
+					localStorage.removeItem("basketItems");
 					this.error = "";
 					router.push("/home")
 				}

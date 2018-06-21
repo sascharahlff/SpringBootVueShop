@@ -3,7 +3,7 @@
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
-			<!-- <li v-for="product in this.products" v-bind:key="product.id">{{ product.id }}</li> -->
+			<li v-for="product in this.products" v-bind:key="product.id">{{ product.id }}</li>
 			<!-- <product-item v-repeat="this.products" v-for="product in products" v-bind:key="product.id" v-bind:id="product.id" /> -->
 			<!-- <product-item v-for="product in products" v-bind:key="product.id" v-bind:id="myId" /> -->
 		</ul>

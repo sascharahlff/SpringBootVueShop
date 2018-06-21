@@ -1,3 +1,4 @@
+import auth from './auth'
 import Vue from 'vue'
 import App from './components/App.vue'
 import Home from './components/Home.vue'
@@ -10,15 +11,39 @@ import VueResource from 'vue-resource'
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
-const routes = [
-	{ path: '/home', component: Home },
-	{ path: '/products', component: Product },
-	{ path: '/login', component: Login },
-	{ path: '/logout', component: Logout }
-]
+// Protect all secured views => redirect to login
+const ifAuthenticated = (to, from, next) => {
+	if (!auth.user.authenticated) {
+		router.push("/login");
+		return
+	}
+
+	next();
+}
 
 export const router = new VueRouter({
-	routes
+	routes: [
+		{
+			path: "/home",
+			name: "Home",
+			component: Home,
+			beforeEnter: ifAuthenticated
+		},
+		{
+			path: "/products",
+			name: "Products",
+			component: Product,
+			beforeEnter: ifAuthenticated
+		},
+		{
+			path: "/login",
+			component: Login
+		},
+		{
+			path: "/logout",
+			component: Logout
+		}
+	]
 })
 
 new Vue({

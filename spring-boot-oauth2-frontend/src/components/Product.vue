@@ -1,17 +1,12 @@
 <template>
 	<div class="form-inline my-2 my-lg-0">
-		<!--<form class="form-inline my-2 my-lg-0">-->
-			<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
-			<!-- <input class="form-control mr-sm-2" v-model.lazy="searchString" v-on:keydown="search" type="search" placeholder="Search" aria-label="Search"> -->
-			<!-- <button class="btn btn-outline-success my-2 my-sm-0" type="submit" v-on:click="search">Search</button> -->
-			<button v-on:click="bla">click me</button>
-			<button v-on:click="reset">reset</button>
-		<!--</form>-->
+		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	</div>
 </template>
 
 <script>
 import auth from '../auth'
+import services from '../services'
 
 export default {
 	data() {
@@ -22,53 +17,43 @@ export default {
 	},
 	watch: {
 		searchString: function(str) {
+			// Start search, when user end typing
+			this.startTimer();
 		}		
 	},
 	methods: {
 		startTimer: function() {
-			// Delete running Timer
+			// Delete running timer
 			if (this.timer != null) {
 				this.stopTimer();
 			}
 
-			console.log("timer: create new timer");
-			this.timer = setInterval(this.reset, 3000);
+			// Start new timer
+			this.timer = setInterval(this.startSearch, 3000);
 		},
 		stopTimer: function() {
-			console.log("timer: destroy old timer");
+			// Remove timer
 			clearInterval(this.timer);
 			this.timer = null;
 		},
-		timeOut: function() {
-			console.log("timer: start search");
-			this.reset();
-		},
-		bla: function() {
-			if (this.timer != null) {
-				clearInterval(this.timer);
-				this.timer = null;
-			}
-
-			this.startTimer();
-
-			// this.timer.setInterval(this.timerFunction(), 3000);
-		},
-		reset: function() {
-			console.log("start search");
+		startSearch: function() {
 			this.stopTimer();
+			var sessionToken = localStorage.getItem("sessionToken");
+
+			if (sessionToken != undefined) {
+				services.searchProducts(this.searchString, sessionToken)
+				.then((response) => {
+					if (response != undefined) {
+						console.log(response);
+					}
+					else {
+						console.log("error");
+					}
+				}).catch ((e) => {
+					console.log("exception");
+				});
+			}
 		}
-		// timerFunction: function() {
-		// 	clearInterval(this.timer)
-		// 	console.log("stop timer");
-		// }
 	}
-	// ,
-	// methods: {
-	// 	search: function() {
-	// 		console.log(this.searchString);
-
-
-	// 	}
-	// }
 }
 </script>

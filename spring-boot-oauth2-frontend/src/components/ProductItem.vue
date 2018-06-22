@@ -6,12 +6,26 @@
 				<h5 class="card-title">{{ product.name }} ({{ product.productNo}})</h5>
 				<p class="card-text">{{product.description}}</p>
 				<p class="card-text">{{product.price}}</p>
-				<a href="#" class="btn btn-primary" v-on:click="submit()">In den Warenkorb</a>
+				<a href="#" class="btn btn-primary" v-on:click="submit(product)">In den Warenkorb</a>
 			</div>
 		</div>
 	</div>
 </template>
 
+<script>
+import { store } from '../main';
+
+export default {
+	props: ["product"],
+	methods: {
+		submit: function(item) {
+			store.state.basketItems.push(item);
+		}
+	}
+}
+</script>
+
+<!--
 <script>
 export default {
 	props: ["product"],
@@ -23,10 +37,10 @@ export default {
 			if (items != undefined) {
 				var basketItems = JSON.parse(items);
 				basketItems.push(this.product);
-console.log("len: " + basketItems.length);
+				console.log("len: " + basketItems.length);
 				localStorage.setItem("basketItems", JSON.stringify(basketItems));
 
-//console.log("1: " + JSON.parse(basketItems));
+				//console.log("1: " + JSON.parse(basketItems));
 
 				// basketItems.push(this.product);
 				// localStorage.setItem("basketItems", JSON.stringify(basketItems));
@@ -44,3 +58,4 @@ console.log("len: " + basketItems.length);
 	}
 }
 </script>
+-->

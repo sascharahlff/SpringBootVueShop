@@ -5,16 +5,14 @@
 		<ul class="list-group mt-5">
 			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product"></product-item>
 		</ul>
-
-		<button type="button" class="btn btn-primary">
-			Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
-		</button>
 	</div>
 </template>
 
 <script>
+import Vue from 'vue'
 import auth from '../auth'
 import services from '../services'
+import { store } from '../main';
 import ProductItem from './ProductItem.vue'
 
 export default {
@@ -25,7 +23,6 @@ export default {
 		return {
 			searchString: "",
 			products: [],
-			basketItems: [],
 			timer: null
 		}
 	},
@@ -33,14 +30,6 @@ export default {
 		searchString: function(str) {
 			// Start search, when user end typing
 			this.startTimer();
-		},
-		localStorage: function() {
-			console.log
-			var items = localStorage.getItem("basketItems");
-
-			if (items != undefined) {
-				basketItems = JSON.parse(items);
-			}
 		}
 	},
 	methods: {

@@ -1,5 +1,6 @@
 import auth from './auth'
 import Vue from 'vue'
+import Vuex from 'vuex'
 import App from './components/App.vue'
 import Home from './components/Home.vue'
 import Product from './components/Product.vue'
@@ -8,6 +9,7 @@ import Logout from './components/Logout.vue'
 import VueRouter from 'vue-router'
 import VueResource from 'vue-resource'
 
+Vue.use(Vuex)
 Vue.use(VueResource)
 Vue.use(VueRouter)
 
@@ -20,6 +22,18 @@ const ifAuthenticated = (to, from, next) => {
 
 	next();
 }
+
+export const store = new Vuex.Store({
+	state: {
+		test: "Hello World!",
+		basketItems: []
+	},
+	mutations: {
+		addItem(product) {
+			basketItems.push(product);
+		}
+	}
+})
 
 export const router = new VueRouter({
 	routes: [
@@ -49,6 +63,7 @@ export const router = new VueRouter({
 new Vue({
 	el: '#app',
 	router,
+	store,
 	template: '<App/>',
 	components: { App }
 })

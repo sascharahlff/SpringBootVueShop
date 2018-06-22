@@ -10,11 +10,10 @@
 		</div>  
 
 		<div class="col-md-4 text-right" v-if="user.authenticated">
-			<button type="button" class="btn btn-primary">
-					Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
-				</button>
-		</div>  
-
+			<button type="button" class="btn btn-primary basket">
+				Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
+			</button>
+		</div>
 	</div>
 	<div class="row">
 		<router-view></router-view>
@@ -37,7 +36,6 @@
 		created: function() {
 			// Delete session token on start 
 			localStorage.removeItem("sessionToken");
-			localStorage.removeItem("basketItems");
 			// Open Login template
 			router.push("/login");
 		}

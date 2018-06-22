@@ -11,7 +11,7 @@
 <script>
 import Vue from 'vue'
 import auth from '../auth'
-import services from '../services'
+import service from '../service'
 import { store } from '../main';
 import ProductItem from './ProductItem.vue'
 
@@ -54,7 +54,7 @@ export default {
 			if (sessionToken != undefined) {
 				this.products = [];
 
-				services.searchProducts(this.searchString, sessionToken)
+				service.search(this.searchString, sessionToken)
 				.then((response) => {
 					var items = [];
 

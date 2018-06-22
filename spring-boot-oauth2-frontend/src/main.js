@@ -1,13 +1,13 @@
 import auth from './auth'
 import Vue from 'vue'
 import Vuex from 'vuex'
+import VueRouter from 'vue-router'
+import VueResource from 'vue-resource'
 import App from './components/App.vue'
 import Home from './components/Home.vue'
 import Product from './components/Product.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
-import VueRouter from 'vue-router'
-import VueResource from 'vue-resource'
 
 Vue.use(Vuex)
 Vue.use(VueResource)

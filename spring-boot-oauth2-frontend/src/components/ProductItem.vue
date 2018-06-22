@@ -24,38 +24,3 @@ export default {
 	}
 }
 </script>
-
-<!--
-<script>
-export default {
-	props: ["product"],
-	methods: {
-		submit: function() {
-			var items = localStorage.getItem("basketItems");
-			console.log("0: " + JSON.parse(items));
-
-			if (items != undefined) {
-				var basketItems = JSON.parse(items);
-				basketItems.push(this.product);
-				console.log("len: " + basketItems.length);
-				localStorage.setItem("basketItems", JSON.stringify(basketItems));
-
-				//console.log("1: " + JSON.parse(basketItems));
-
-				// basketItems.push(this.product);
-				// localStorage.setItem("basketItems", JSON.stringify(basketItems));
-			}
-			else {
-				var a = [];
-				a.push(this.product);
-				localStorage.setItem("basketItems", JSON.stringify(a));
-			}
-
-			var foo = localStorage.getItem("basketItems");
-
-			console.log("2: " + JSON.parse(foo));
-		}
-	}
-}
-</script>
--->

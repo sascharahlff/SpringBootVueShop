@@ -15,6 +15,7 @@
 
 <script>
 import {router} from '../main'
+import service from '../service'
 import auth from '../auth'
 
 export default {
@@ -28,12 +29,11 @@ export default {
 	methods: {
 		login: function() {
 			// Async call
-			auth.login(this.user, this.password)
+			service.login(this.user, this.password)
 			.then((response) => {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					auth.user.authenticated = true;
-					localStorage.removeItem("basketItems");
 					this.error = "";
 					router.push("/home")
 				}

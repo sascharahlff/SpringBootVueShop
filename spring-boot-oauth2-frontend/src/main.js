@@ -25,7 +25,6 @@ const ifAuthenticated = (to, from, next) => {
 
 export const store = new Vuex.Store({
 	state: {
-		test: "Hello World!",
 		basketItems: []
 	},
 	mutations: {

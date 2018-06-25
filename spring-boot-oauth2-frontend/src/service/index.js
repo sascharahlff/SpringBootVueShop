@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 export default {
-//export const login = async function(login, password) {
 	login: async function(login, password) {
 		var formData = new FormData();
 		formData.append('username', login);

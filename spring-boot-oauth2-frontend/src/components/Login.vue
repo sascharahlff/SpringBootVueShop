@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import {router} from '../main'
-import service from '../service'
 import auth from '../auth'
+import service from '../service'
+import {router} from '../main'
 
 export default {
 	data() {
@@ -38,11 +38,11 @@ export default {
 					router.push("/home")
 				}
 				else {
-					this.error = "Bad credentials";
+					this.error = "Die Anmeldedaten waren fehlerhaft.";
 					auth.user.authenticated = false;
 				}
 			}).catch ((e) => {
-				this.error = "Bad credentials";
+				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
 				auth.user.authenticated = false;
 			});
 		}

@@ -1,5 +1,5 @@
 <template>
-	<div class="row pt-5">
+	<div class="row basketItem">
 		<div class="col-md-2"><img class="img-fluid" width="100" v-bind:src="'src/assets/images/'+ product.image" v-bind:title="product.name"></div>
 		<div class="col-md-6">
 			<div class="card-body">

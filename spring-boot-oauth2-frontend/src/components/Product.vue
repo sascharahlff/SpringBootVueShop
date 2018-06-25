@@ -12,8 +12,8 @@
 import Vue from 'vue'
 import auth from '../auth'
 import service from '../service'
-import { store } from '../main';
 import ProductItem from './ProductItem.vue'
+import { store } from '../main';
 
 export default {
 	components: {
@@ -79,6 +79,10 @@ export default {
 				}).catch ((e) => {
 					console.log("exception: " + e);
 				});
+			}
+			else {
+				// TODO Session erneuern
+				
 			}
 		}
 	}

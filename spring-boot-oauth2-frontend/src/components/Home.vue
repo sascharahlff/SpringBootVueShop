@@ -4,10 +4,3 @@
 		<h5>Schauen Sie sich unsere <router-link to="/products">Produkte</router-link> an</h5>	
 	</div>
 </template>
-
-<script>
-import auth from '../auth'
-
-export default {
-}
-</script>

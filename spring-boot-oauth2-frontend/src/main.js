@@ -30,6 +30,9 @@ export const store = new Vuex.Store({
 	mutations: {
 		addItem(product) {
 			basketItems.push(product);
+		},
+		getItems() {
+			return basketItems;
 		}
 	}
 })

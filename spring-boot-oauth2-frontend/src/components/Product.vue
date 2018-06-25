@@ -14,6 +14,7 @@ import Vue from 'vue'
 import auth from '../auth'
 import service from '../service'
 import ProductItem from './ProductItem.vue'
+import ProductVO from '../model/ProductVO.js';
 import { store } from '../main';
 
 export default {
@@ -63,15 +64,8 @@ export default {
 
 					if (response != undefined) {
 						response.data.forEach(element => {
-							var item = {
-								id: element.id,
-								productNo: element.productNo,
-								name: element.name,
-								description: element.description,
-								image: element.image,
-								price: element.price
-							};
-							items.push(item);
+							var productVo = new ProductVO(element.id, element.productVo, element.name, element.description, element.image, element.price);
+							items.push(productVo);
 						});
 					}
 					else {

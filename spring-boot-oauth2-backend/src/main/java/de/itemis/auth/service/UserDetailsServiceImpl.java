@@ -17,11 +17,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Autowired
 	UserDetailsConverter converter;
-	
+
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		User user = userRepository.findByUsername(username);
-		
+
 		return converter.convert(user);
 	}
 }

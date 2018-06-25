@@ -31,7 +31,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return accountExpired;
@@ -40,7 +40,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 	public void setAccountExpired(boolean accountExpired) {
 		this.accountExpired = accountExpired;
 	}
-	
+
 	@Override
 	public boolean isAccountNonLocked() {
 		return accountLocked;

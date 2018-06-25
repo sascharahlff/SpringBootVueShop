@@ -1,5 +1,6 @@
 <template>
 	<div class="container">
+		<div v-if="error != ''" class="alert alert-danger" role="alert">{{ error }}</div>
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
@@ -21,6 +22,7 @@ export default {
   	},
 	data() {
 		return {
+			error: "",
 			searchString: "",
 			products: [],
 			timer: null
@@ -54,6 +56,7 @@ export default {
 			if (sessionToken != undefined) {
 				this.products = [];
 
+				var self = this;
 				service.search(this.searchString, sessionToken)
 				.then((response) => {
 					var items = [];
@@ -72,18 +75,30 @@ export default {
 						});
 					}
 					else {
-						console.log("error");
+						console.log(self);
+						self.error = "Keine Daten empfangen.";
 					}
 
 					this.products = items;
 				}).catch ((e) => {
-					console.log("exception: " + e);
+					// Token is expired => get new token with refresh-token and restart search
+					if (e.response.data != undefined && e.response.data.error != undefined && e.response.data.error == "invalid_token") {
+						service.refreshToken(this.tokenRefreshCallback);
+					}
+					// Other error
+					else {
+						self.error = "Der Service ist nicht erreichbar."
+					}
 				});
 			}
 			else {
-				// TODO Session erneuern
-				
+				// Session erneuern
+				this.error = "Kein Session-Token gefunden, bitte loggen Sie sich erneut ein.";
 			}
+		},
+		tokenRefreshCallback: function() {
+			// Restart search with new token
+			this.startSearch();
 		}
 	}
 }

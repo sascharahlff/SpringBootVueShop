@@ -22,8 +22,7 @@ public class ProductServiceImp implements ProductService {
 	@Override
 	public List<Product> search(String search) {
 		List<Product> products = new ArrayList<Product>();
-		
-		
+
 		return products;
 	}
 }

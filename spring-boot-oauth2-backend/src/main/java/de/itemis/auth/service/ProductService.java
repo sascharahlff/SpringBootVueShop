@@ -6,5 +6,6 @@ import de.itemis.auth.domain.Product;
 
 public interface ProductService {
 	Product findByName(String name);
+
 	List<Product> search(String search);
 }

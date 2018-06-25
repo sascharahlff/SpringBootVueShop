@@ -1,3 +1,5 @@
+<template></template>
+
 <script>
 import auth from '../auth'
 import {router} from '../main'

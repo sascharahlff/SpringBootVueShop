@@ -26,7 +26,7 @@ public class User {
 	private String password;
 	private String passwordHash;
 	private boolean enabled = true;
-	
+
 	@JsonIgnore
 	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
 	private List<Address> addresses = new ArrayList<Address>();
@@ -38,7 +38,7 @@ public class User {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	
+
 	public String getUsername() {
 		return this.username;
 	}
@@ -46,7 +46,7 @@ public class User {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getPassword() {
 		return this.passwordHash;
 	}
@@ -62,7 +62,7 @@ public class User {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
-	
+
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
@@ -70,7 +70,7 @@ public class User {
 	public boolean isEnabled() {
 		return this.enabled;
 	}
-	
+
 	public List<Address> getAddresses() {
 		return addresses;
 	}

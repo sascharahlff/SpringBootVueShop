@@ -29,10 +29,10 @@ public class Address {
 	@NotNull
 	private String city;
 	private boolean preferredAddress;
-	
+
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
 	public String getStreet() {
@@ -78,7 +78,7 @@ public class Address {
 	public User getUser() {
 		return user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}

@@ -6,6 +6,7 @@ import VueResource from 'vue-resource'
 import App from './components/App.vue'
 import Home from './components/Home.vue'
 import Product from './components/Product.vue'
+import Basket from './components/Basket.vue'
 import Login from './components/Login.vue'
 import Logout from './components/Logout.vue'
 
@@ -49,6 +50,12 @@ export const router = new VueRouter({
 			path: "/products",
 			name: "Products",
 			component: Product,
+			beforeEnter: ifAuthenticated
+		},
+		{
+			path: "/basket",
+			name: "Basket",
+			component: Basket,
 			beforeEnter: ifAuthenticated
 		},
 		{

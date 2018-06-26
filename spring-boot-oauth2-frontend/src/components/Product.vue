@@ -39,11 +39,6 @@ export default {
 			this.startTimer();
 		}
 	},
-	events: {
-		'some-event': function () {
-			alert("do something");
-		}
-	},
 	methods: {
 		startTimer: function() {
 			// Delete running timer

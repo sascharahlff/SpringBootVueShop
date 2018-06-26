@@ -36,6 +36,8 @@ export default {
 				var basketItem = new BasketItem(item, 1);
 				store.state.basketItems.push(basketItem);
 			}
+
+			this.$emit('addItem');
 		}
 	}
 }

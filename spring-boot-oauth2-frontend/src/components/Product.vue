@@ -1,10 +1,11 @@
 <template>
 	<div class="container">
-		<div v-if="error != ''" class="alert alert-danger" role="alert">{{ error }}</div>
+		<div v-if="error !== ''" class="alert alert-danger" role="alert">{{ error }}</div>
+		<div v-if="info !== ''" class="alert alert-success" role="alert">{{ info }}</div>
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
-			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product"></product-item>
+			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product" v-on:addItem="addProduct()"></product-item>
 		</ul>
 	</div>
 </template>
@@ -16,6 +17,7 @@ import service from '../service'
 import ProductItem from './ProductItem.vue'
 import ProductVO from '../model/ProductVO.js';
 import { store } from '../main';
+import Timer from '../utils/Timer.js';
 
 export default {
 	components: {
@@ -24,15 +26,22 @@ export default {
 	data() {
 		return {
 			error: "",
+			info: "",
 			searchString: "",
 			products: [],
-			timer: null
+			timer: null,
+			removeTimer: null
 		}
 	},
 	watch: {
 		searchString: function(str) {
 			// Start search, when user end typing
 			this.startTimer();
+		}
+	},
+	events: {
+		'some-event': function () {
+			alert("do something");
 		}
 	},
 	methods: {
@@ -93,6 +102,21 @@ export default {
 		tokenRefreshCallback: function() {
 			// Restart search with new token
 			this.startSearch();
+		},
+		addProduct: function() {
+			this.info = "Das Product wurde in den Warenkorb gelegt.";
+			var self = this;
+			this.clearInfo();
+		},
+		clearInfo: function() {
+			if (this.removeTimer == null) {1
+				this.removeTimer = new Timer(2000, this.clearInfoHandler);
+			}
+
+			this.removeTimer.start();
+		},
+		clearInfoHandler: function() {
+			this.info = "";
 		}
 	}
 }

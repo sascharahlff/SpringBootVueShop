@@ -20,7 +20,7 @@ export default class Timer {
 
 	tick() {
 		this.stop();
-		// TODO dispatch Event
+
 		if (this.callback != null) {
 			this.callback();
 		}

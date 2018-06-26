@@ -15,7 +15,7 @@
 <script>
 import { store } from '../main';
 import ProductVO from '../model/ProductVO.js';
-import BasketItem from '../model/BasketItem.js';
+import BasketItemVO from '../model/BasketItemVO.js';
 
 export default {
 	props: ["product"],
@@ -33,7 +33,7 @@ export default {
 			});
 
 			if (!exists) {
-				var basketItem = new BasketItem(item, 1);
+				var basketItem = new BasketItemVO(item.getId(), item, 1);
 				store.state.basketItems.push(basketItem);
 			}
 

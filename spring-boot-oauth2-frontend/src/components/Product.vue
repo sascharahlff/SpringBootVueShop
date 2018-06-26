@@ -5,7 +5,7 @@
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
 		<ul class="list-group mt-5">
-			<product-item v-for="product in this.products" v-bind:key="product.id" v-bind:product="product" v-on:addItem="addProduct()"></product-item>
+			<product-item v-for="product in this.products" v-bind:key="product.getId()" v-bind:product="product" v-on:addItem="addProduct()"></product-item>
 		</ul>
 	</div>
 </template>
@@ -16,7 +16,7 @@ import auth from '../auth'
 import service from '../service'
 import ProductItem from './ProductItem.vue'
 import ProductVO from '../model/ProductVO.js';
-import { store } from '../main';
+import { store, router } from '../main';
 import Timer from '../utils/Timer.js';
 
 export default {
@@ -29,39 +29,35 @@ export default {
 			info: "",
 			searchString: "",
 			products: [],
-			timer: null,
+			searchTimer: null,
 			removeTimer: null
 		}
 	},
 	watch: {
 		searchString: function(str) {
-			// Start search, when user end typing
+			// Start search, when user ends typing
 			this.startTimer();
 		}
 	},
 	methods: {
 		startTimer: function() {
-			// Delete running timer
-			if (this.timer != null) {
-				this.stopTimer();
+			if (this.searchTimer == null) {
+				this.searchTimer = new Timer(1000, this.startSearch);
+			}
+			else {
+				this.searchTimer.stop();
 			}
 
-			// Start new timer
-			this.timer = setInterval(this.startSearch, 1000);
-		},
-		stopTimer: function() {
-			// Remove timer
-			clearInterval(this.timer);
-			this.timer = null;
+			this.searchTimer.start();
 		},
 		startSearch: function() {
-			this.stopTimer();
+			this.searchTimer.stop();
 			var sessionToken = localStorage.getItem("sessionToken");
 
 			if (sessionToken != undefined) {
 				this.products = [];
-
 				var self = this;
+
 				service.search(this.searchString, sessionToken)
 				.then((response) => {
 					var items = [];
@@ -99,7 +95,7 @@ export default {
 			this.startSearch();
 		},
 		addProduct: function() {
-			this.info = "Das Product wurde in den Warenkorb gelegt.";
+			this.info = "Das Produkt wurde in den Warenkorb gelegt.";
 			var self = this;
 			this.clearInfo();
 		},

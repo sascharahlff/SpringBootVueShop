@@ -10,7 +10,7 @@
 		</div>  
 
 		<div class="col-md-4 text-right" v-if="user.authenticated">
-			<button type="button" class="btn btn-primary basket">
+			<button type="button" class="btn btn-primary basket" v-on:click="showBasket()">
 				Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
 			</button>
 		</div>
@@ -39,6 +39,11 @@
 			localStorage.removeItem("sessionToken");
 			// Open Login template
 			router.push("/login");
+		},
+		methods: {
+			showBasket: function() {
+				router.push("/basket");
+			}
 		}
 	}
 </script>

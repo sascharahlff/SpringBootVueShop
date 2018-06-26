@@ -1,7 +1,16 @@
 export default class BasketItem {
-	constructor(item, quantity) {
+	constructor(id, item, quantity) {
+		this.id = id;
 		this.item = item;
 		this.quantity = quantity;
+	}
+
+	getId() {
+		return this.id;
+	}
+
+	setId(id) {
+		this.id = id;
 	}
 
 	getItem() {

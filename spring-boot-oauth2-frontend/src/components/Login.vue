@@ -14,16 +14,18 @@
 </template>
 
 <script>
-import auth from '../auth'
+//import auth from '../auth'
 import service from '../service'
 import {router} from '../main'
+import { store } from '../main';
 
 export default {
 	data() {
 		return {
 			user: "foo",
 			password: "bar",
-			error: ""
+			error: ""//,
+			//a: store.state.authenticated
 		}
 	},
 	methods: {
@@ -34,17 +36,25 @@ export default {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					localStorage.setItem("refreshToken", response.data.refresh_token);
-					auth.user.authenticated = true;
+					//store.login();
+					store.commit("login");
+					//store.state.authenticated = true;
+					//a = true;
+					console.log("x: "+ store.state.authenticated);
+					// TODO auth.user.authenticated = true;
 					this.error = "";
 					router.push("/home")
 				}
 				else {
 					this.error = "Die Anmeldedaten waren fehlerhaft.";
-					auth.user.authenticated = false;
+					store.commit("logout");
+					// TODO auth.user.authenticated = false;
 				}
 			}).catch ((e) => {
+				console.log("error: " + e);
 				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
-				auth.user.authenticated = false;
+				store.commit("logout");
+				// TODO auth.user.authenticated = false;
 			});
 		}
 	}

@@ -13,7 +13,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
 	Product findByName(String name);
 
-	@Query(value = "SELECT id, product_no, name, description, image, price " + "FROM products "
+	@Query(value = "SELECT id, product_no, name, description, image, price " 
+			+ "FROM products "
 			+ "WHERE LOWER(name) LIKE LOWER(concat('%', :search,'%')) "
 			+ "OR LOWER(description) LIKE LOWER(concat('%', :search,'%'))", nativeQuery = true)
 	List<Product> search(@Param("search") String search);

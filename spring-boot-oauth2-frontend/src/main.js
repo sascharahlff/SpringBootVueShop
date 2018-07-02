@@ -1,4 +1,4 @@
-import auth from './auth'
+//import auth from './auth'
 import Vue from 'vue'
 import Vuex from 'vuex'
 import VueRouter from 'vue-router'
@@ -16,7 +16,7 @@ Vue.use(VueRouter)
 
 // Protect all secured views => redirect to login
 const ifAuthenticated = (to, from, next) => {
-	if (!auth.user.authenticated) {
+	if (!store.state.authenticated) {
 		router.push("/login");
 		return
 	}
@@ -26,15 +26,22 @@ const ifAuthenticated = (to, from, next) => {
 
 export const store = new Vuex.Store({
 	state: {
-		basketItems: []
+		basketItems: [],
+		authenticated: false
 	},
 	mutations: {
-		addItem(product) {
-			basketItems.push(product);
+		// addItem(product) {
+		// 	basketItems.push(product);
+		// },
+		// getItems(state) {
+		// 	return basketItems;
+		// },
+		login(state) {
+			state.authenticated = true;
 		},
-		getItems() {
-			return basketItems;
-		}
+		logout(state) {
+			state.authenticated = false;
+		} 
 	}
 })
 

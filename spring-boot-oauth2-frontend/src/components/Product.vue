@@ -4,7 +4,7 @@
 		<div v-if="info !== ''" class="alert alert-success" role="alert">{{ info }}</div>
 		<input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" v-bind:value="searchString" v-on:input="searchString = $event.target.value">
 	
-		<ul class="list-group mt-5">
+		<ul class="list-group mt-5" style="clear:right">
 			<product-item v-for="product in this.products" v-bind:key="product.getId()" v-bind:product="product" v-on:addItem="addProduct()"></product-item>
 		</ul>
 	</div>

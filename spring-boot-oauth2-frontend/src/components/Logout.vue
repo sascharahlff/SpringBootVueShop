@@ -6,7 +6,7 @@ import {router} from '../main'
 
 export default {
 	created: function() {
-		// TODO auth.user.authenticated = false;
+		//auth.setLogInState(false);
 		router.push("/login");
 	}
 }

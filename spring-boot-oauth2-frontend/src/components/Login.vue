@@ -14,7 +14,7 @@
 </template>
 
 <script>
-//import auth from '../auth'
+import auth from '../auth'
 import service from '../service'
 import {router} from '../main'
 import { store } from '../main';
@@ -24,37 +24,36 @@ export default {
 		return {
 			user: "foo",
 			password: "bar",
-			error: ""//,
-			//a: store.state.authenticated
+			error: ""
 		}
 	},
 	methods: {
 		login: function() {
+			console.log("login");
+		},
+		xlogin: function() {
 			// Async call
 			service.login(this.user, this.password)
 			.then((response) => {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					localStorage.setItem("refreshToken", response.data.refresh_token);
-					//store.login();
-					store.commit("login");
-					//store.state.authenticated = true;
-					//a = true;
-					console.log("x: "+ store.state.authenticated);
-					// TODO auth.user.authenticated = true;
+					//auth.setLogInState(true);
+					store.commit("login", true);
+
+					console.log("login: " + store.state.authenticated);
+
 					this.error = "";
 					router.push("/home")
 				}
 				else {
 					this.error = "Die Anmeldedaten waren fehlerhaft.";
-					store.commit("logout");
-					// TODO auth.user.authenticated = false;
+					//auth.setLogInState(false);
 				}
 			}).catch ((e) => {
 				console.log("error: " + e);
 				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
-				store.commit("logout");
-				// TODO auth.user.authenticated = false;
+				//auth.setLogInState(false);
 			});
 		}
 	}

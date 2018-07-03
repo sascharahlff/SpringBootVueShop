@@ -6,7 +6,8 @@ import {router} from '../main'
 
 export default {
 	created: function() {
-		//auth.setLogInState(false);
+		sessionStorage.setItem("isLoggedIn", false);
+		auth.setDefaults();
 		router.push("/login");
 	}
 }

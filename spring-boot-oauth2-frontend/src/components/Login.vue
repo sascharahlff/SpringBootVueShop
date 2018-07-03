@@ -16,8 +16,7 @@
 <script>
 import auth from '../auth'
 import service from '../service'
-import {router} from '../main'
-import { store } from '../main';
+import { router } from '../main'
 
 export default {
 	data() {
@@ -29,31 +28,28 @@ export default {
 	},
 	methods: {
 		login: function() {
-			console.log("login");
-		},
-		xlogin: function() {
 			// Async call
 			service.login(this.user, this.password)
 			.then((response) => {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					localStorage.setItem("refreshToken", response.data.refresh_token);
-					//auth.setLogInState(true);
-					store.commit("login", true);
-
-					console.log("login: " + store.state.authenticated);
-
+					sessionStorage.setItem("isLoggedIn", true);
+					auth.setDefaults();
+		
 					this.error = "";
 					router.push("/home")
 				}
 				else {
 					this.error = "Die Anmeldedaten waren fehlerhaft.";
-					//auth.setLogInState(false);
+					sessionStorage.setItem("isLoggedIn", false);
+					auth.setDefaults();
 				}
 			}).catch ((e) => {
 				console.log("error: " + e);
 				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
-				//auth.setLogInState(false);
+					sessionStorage.setItem("isLoggedIn", false);
+					auth.setDefaults();
 			});
 		}
 	}

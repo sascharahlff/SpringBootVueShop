@@ -1,23 +1,17 @@
 <template>
 <div class="container">
-	<button type="button" class="btn btn-primary basket" v-on:click="showBasket()">
-		Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
-	</button>
-	<!--
+	<div style="float:right">
+		<button type="button" class="btn btn-primary basket" v-on:click="showBasket()">
+			Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
+		</button>
+	</div>
 	<div>
-		<div style="float:right">
-			<button type="button" class="btn btn-primary basket" v-on:click="showBasket()">
-				Warenkorb <span class="badge badge-light">{{ basketItems.length }}</span>
-			</button>
-		</div>
-		<div>
-			<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				<router-link class="navbar-brand" to="/home" v-if="this.authenticated">HOME</router-link>
-				<router-link class="navbar-brand" to="/products" v-if="this.authenticated">PRODUKTE</router-link>
-				<router-link class="navbar-brand" to="/logout" v-if="this.authenticated">LOGOUT</router-link>
-			</nav>
-		</div>
-	</div>-->
+		<nav xclass="navbar navbar-expand-lg navbar-light bg-light">
+			<router-link class="navbar-brand" to="/home" v-if="this.user.authenticated">HOME</router-link>
+			<router-link class="navbar-brand" to="/products" v-if="this.user.authenticated">PRODUKTE</router-link>
+			<router-link class="navbar-brand" to="/logout" v-if="this.user.authenticated">LOGOUT</router-link>
+		</nav>
+	</div>
 	
 	<div style="clear:right">
 		<router-view></router-view>
@@ -33,26 +27,16 @@
 	export default {
 		data() {
 			return {
-				//authenticated: store.state.authenticated,
+				user: auth.user,
 				basketItems: store.state.basketItems
 			}
 		},
 		created: function() {
-			// var isLoggedIn = false;//auth.isLoggedIn();
-
-			// console.log("isLoggedIn: " + isLoggedIn);
-
-			// if (!isLoggedIn) {
-			// 	console.log("need to login");
-			// 	router.push("/login");
-			// }
+			auth.setDefaults();
 		},
 		methods: {
 			showBasket: function() {
-				alert("test");
-				console.log("test");
-				this.authenticated = true;
-				// TODO router.push("/basket");
+				router.push("/basket");
 			}
 		}
 	}

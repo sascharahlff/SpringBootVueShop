@@ -2,12 +2,11 @@
 
 <script>
 import auth from '../auth'
-import {router} from '../main'
+import router from '../router'
 
 export default {
 	created: function() {
-		sessionStorage.setItem("isLoggedIn", false);
-		auth.setDefaults();
+		auth.setAuthenticated(false);
 		router.push("/login");
 	}
 }

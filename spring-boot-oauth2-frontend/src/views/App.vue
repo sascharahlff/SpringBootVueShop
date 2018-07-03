@@ -21,18 +21,21 @@
 
 <script>
 	import auth from '../auth'
-	import { router } from '../main';
-	import { store } from '../main';
+	import store from '../store/Store';
+	import router from '../router';
 
 	export default {
 		data() {
 			return {
+				a: auth.isAuthenticated(),
 				user: auth.user,
 				basketItems: store.state.basketItems
 			}
 		},
 		created: function() {
-			auth.setDefaults();
+			if (!auth.isAuthenticated()) {
+				router.push("/login");
+			}
 		},
 		methods: {
 			showBasket: function() {

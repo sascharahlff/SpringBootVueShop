@@ -12,11 +12,9 @@
 
 <script>
 import Vue from 'vue'
-import auth from '../auth'
-import service from '../service'
 import ProductItem from './ProductItem.vue'
 import ProductVO from '../model/ProductVO.js';
-import { store, router } from '../main';
+import service from '../service'
 import Timer from '../utils/Timer.js';
 
 export default {
@@ -69,7 +67,6 @@ export default {
 						});
 					}
 					else {
-						console.log(self);
 						self.error = "Keine Daten empfangen.";
 					}
 

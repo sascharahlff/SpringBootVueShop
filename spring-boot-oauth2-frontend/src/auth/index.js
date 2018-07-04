@@ -1,3 +1,5 @@
+import store from '../store';
+
 export default {
 	user: {
 		authenticated: false
@@ -15,5 +17,9 @@ export default {
 	setAuthenticated: function(state) {
 		sessionStorage.setItem("authenticated", state);
 		this.user.authenticated = state;
+
+		if (!state) {
+			store.commit("clear");
+		}
 	}
 }

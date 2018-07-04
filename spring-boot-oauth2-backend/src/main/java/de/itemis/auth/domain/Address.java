@@ -22,11 +22,16 @@ public class Address {
 	@Column(name = "address_id")
 	private Long id;
 	@NotNull
+	@Size(max = 100)
+	private String name;
+	@NotNull
+	@Size(max = 100)
 	private String street;
 	@NotNull
 	@Size(max = 5)
 	private String zipCode;
 	@NotNull
+	@Size(max = 100)
 	private String city;
 	private boolean preferredAddress;
 
@@ -45,6 +50,14 @@ public class Address {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setStreet(String street) {

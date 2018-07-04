@@ -42,6 +42,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 		addresses = new ArrayList<>();
 		Address address = new Address();
 		address.setUser(user);
+		address.setName("Biff Tannen");
 		address.setStreet("Speersort 10");
 		address.setZipCode("20095");
 		address.setCity("Hamburg");
@@ -50,6 +51,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
 		address = new Address();
 		address.setUser(user);
+		address.setName("Marty McFly");
 		address.setStreet("Schuhmacherort 2");
 		address.setZipCode("25746");
 		address.setCity("Heide");
@@ -67,6 +69,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 
 		addresses = new ArrayList<>();
 		address = new Address();
+		address.setName("Sascha Rahlff");
 		address.setUser(user);
 		address.setStreet("Osterende 1A");
 		address.setZipCode("25881");

@@ -2,7 +2,8 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import Product from '../views/Product.vue'
-import Basket from '../views/Basket.vue'
+import Cart from '../views/Cart.vue'
+import Order from '../views/Order.vue'
 import Login from '../views/Login.vue'
 import Logout from '../views/Logout.vue'
 import auth from '../auth'
@@ -12,7 +13,6 @@ Vue.use(VueRouter)
 // Protect all secured views => redirect to login
 const checkAuthentication = (to, from, next) => {
 	if (!auth.isAuthenticated()) {
-		console.log("main.js routing to login");
 		router.push("/login");
 		return
 	}
@@ -35,9 +35,15 @@ const router = new VueRouter({
 			beforeEnter: checkAuthentication
 		},
 		{
-			path: "/basket",
-			name: "Basket",
-			component: Basket,
+			path: "/cart",
+			name: "Cart",
+			component: Cart,
+			beforeEnter: checkAuthentication
+		},
+		{
+			path: "/order",
+			name: "Order",
+			component: Order,
 			beforeEnter: checkAuthentication
 		},
 		{

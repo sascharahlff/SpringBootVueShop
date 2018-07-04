@@ -1,4 +1,4 @@
-export default class BasketItem {
+export default class CartItem {
 	constructor(id, item, quantity) {
 		this.id = id;
 		this.item = item;

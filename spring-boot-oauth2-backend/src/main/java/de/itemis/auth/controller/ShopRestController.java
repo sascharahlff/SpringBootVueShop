@@ -13,16 +13,33 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import de.itemis.auth.domain.Address;
 import de.itemis.auth.domain.Product;
+import de.itemis.auth.repository.AddressRepository;
 import de.itemis.auth.repository.ProductRepository;
 
 @RestController
 @RequestMapping("/secured")
-public class ProductRestController {
+public class ShopRestController {
+	private static final String ADDRESS_PATH = "/address";
 	private static final String PRODUCTS_PATH = "/products";
 
 	@Autowired
+	AddressRepository addressRepository;
+	
+	@Autowired
 	ProductRepository productRepository;
+
+	@CrossOrigin(origins = "http://localhost:8080")
+	@RequestMapping(value = ADDRESS_PATH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(value = HttpStatus.OK)
+	public @ResponseBody List<Address> getAddresses(@RequestParam("userid") String userId) {
+		List<Address> a = addressRepository.getUserAddressList(userId);
+		
+		return a;
+		
+		//return addressRepository.getUserAddressList(userId);
+	}
 
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(value = PRODUCTS_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)

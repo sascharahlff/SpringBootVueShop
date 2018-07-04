@@ -9,14 +9,14 @@
 			<label for="userPassword">Password</label>
 			<input class="form-control" id="userPassword" type="password" v-model="password" placeholder="Your password">
 		</div>
-		<button class="btn btn-primary" v-on:click="login">login</button>
+		<button class="btn btn-primary" v-on:click="login">Login</button>
 	</div>
 </template>
 
 <script>
 import auth from '../auth'
-import service from '../service'
 import router from '../router'
+import service from '../service'
 
 export default {
 	data() {
@@ -27,7 +27,7 @@ export default {
 		}
 	},
 	created: function() {
-		// Remove authentication when login is called
+		// Remove session when login is called
 		if (auth.isAuthenticated()) {
 			auth.setAuthenticated(false);
 		}
@@ -49,7 +49,6 @@ export default {
 					auth.setAuthenticated(false);
 				}
 			}).catch ((e) => {
-				console.log("error: " + e);
 				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
 				auth.setAuthenticated(false);
 			});

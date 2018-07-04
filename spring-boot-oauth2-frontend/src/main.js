@@ -1,15 +1,7 @@
 import Vue from 'vue'
-import Vuex from 'vuex'
 import App from './views/App.vue'
 import router from './router'
-
-Vue.use(Vuex)
-
-export const store = new Vuex.Store({
-	state: {
-		basketItems: []
-	}
-})
+import store from './store'
 
 new Vue({
 	el: '#app',

@@ -1,5 +1,5 @@
 <template>
-	<div class="row basketItem">
+	<div class="row cartItem">
 		<div class="col-md-2"><img class="img-fluid" width="100" v-bind:src="'src/assets/images/'+ product.image" v-bind:title="product.name"></div>
 		<div class="col-md-6">
 			<div class="card-body">
@@ -13,28 +13,28 @@
 </template>
 
 <script>
-import { store } from '../main';
+import store from '../store';
 import ProductVO from '../model/ProductVO.js';
-import BasketItemVO from '../model/BasketItemVO.js';
+import CartItemVO from '../model/CartItemVO.js';
 
 export default {
 	props: ["product"],
 	methods: {
 		submit: function(item) {
-			var products = store.state.basketItems;
+			var products = store.state.cartItems;
 			var exists = false;
 
-			products.forEach(basketItem => {
-				if (basketItem.item.id == item.id) {
-					basketItem.addQuantity(1);
+			products.forEach(cartItem => {
+				if (cartItem.item.getId() == item.id) {
+					cartItem.addQuantity(1);
 					exists = true;
 					return
 				}
 			});
 
 			if (!exists) {
-				var basketItem = new BasketItemVO(item.getId(), item, 1);
-				store.state.basketItems.push(basketItem);
+				var newProduct = new CartItemVO(item.getId(), item, 1);
+				store.commit("addToCart", newProduct);
 			}
 
 			this.$emit('addItem');

@@ -31,14 +31,10 @@ public class ShopRestController {
 	ProductRepository productRepository;
 
 	@CrossOrigin(origins = "http://localhost:8080")
-	@RequestMapping(value = ADDRESS_PATH, method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = ADDRESS_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	public @ResponseBody List<Address> getAddresses(@RequestParam("userid") String userId) {
-		List<Address> a = addressRepository.getUserAddressList(userId);
-		
-		return a;
-		
-		//return addressRepository.getUserAddressList(userId);
+	public @ResponseBody List<Address> getAddresses(@RequestParam("userid") Long userId) {
+		return addressRepository.getUserAddressList(userId);
 	}
 
 	@CrossOrigin(origins = "http://localhost:8080")

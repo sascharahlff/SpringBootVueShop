@@ -62,8 +62,8 @@ export default {
 
 					if (response != undefined) {
 						response.data.forEach(element => {
-							var productVo = new ProductVO(element.id, element.productVo, element.name, element.description, element.image, element.price);
-							items.push(productVo);
+							var productVO = new ProductVO(element.id, element.productVo, element.name, element.description, element.image, element.price);
+							items.push(productVO);
 						});
 					}
 					else {

@@ -70,5 +70,23 @@ export default {
 		});
 
 		return json;
+	},
+	getAddressList:  async function(userId, token) {
+		var formData = new FormData();
+		formData.append('userid', userId);
+
+		var json = await axios({
+			method: "POST",
+			baseURL: "http://localhost:8081/",
+			url: "secured/address",
+			headers: {
+				"Access-Control-Allow-Origin": "http://localhost:8080",
+				"Accept": "application/json",
+				"Authorization": "Bearer" + token
+			},
+			data: formData
+		});
+
+		return json;
 	}
 }

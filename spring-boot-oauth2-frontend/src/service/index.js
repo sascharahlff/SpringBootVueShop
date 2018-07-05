@@ -30,7 +30,7 @@ export default {
 		formData.append('refresh_token', localStorage.getItem("refreshToken"));
 		formData.append('grant_type', 'refresh_token');
 
-		var json = await axios({
+		await axios({
 			method: "POST",
 			baseURL: "http://localhost:8081/",
 			url: "oauth/token",
@@ -93,5 +93,23 @@ export default {
 		});
 
 		return json;
+	},
+	saveOrder: function(addressId, cartItems) {
+		console.log("--- order ---");
+		var json = {
+			userId: 1,
+			addressId: addressId,
+			items: []
+		};
+
+		cartItems.forEach(cartItem => {
+			json.items.push({
+				productId: cartItem.item.getId(),
+				quantity: cartItem.getQuantity()
+
+			});
+		});
+
+		console.log(json);
 	}
 }

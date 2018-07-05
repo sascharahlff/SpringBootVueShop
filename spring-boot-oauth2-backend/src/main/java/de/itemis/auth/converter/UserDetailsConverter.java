@@ -13,6 +13,7 @@ public class UserDetailsConverter implements Converter<de.itemis.auth.domain.Use
 		UserDetails userDetails = new UserDetails();
 
 		if (user != null) {
+			userDetails.setUserId(user.getId());
 			userDetails.setUsername(user.getUsername());
 			userDetails.setPassword(user.getPasswordHash());
 			userDetails.setEnabled(user.isEnabled());

@@ -1,7 +1,16 @@
+label {
+	font-weight: normal;
+}
+
 .cart {
 	margin-top: 10px;
 }
 
 .cartItem {
 	padding-top: 20px;
+}
+
+.orderAddressLabel {
+	font-size: 18px;
+	font-weight: bold;
 }

@@ -2,16 +2,22 @@
 	<div class="container">
 		<div v-if="error !== ''" class="alert alert-danger" role="alert">{{ error }}</div>
 		<div class="form-group">
-			<label for="foo">Adressauswahl</label>
-			<div id="foo">
-				<cart-item v-for="item in this.cartItems" v-bind:key="item.getId()" v-bind:cartItem="item"></cart-item>
+			<label class="orderAddressLabel" for="userAddresses">Versandadresse</label>
+			<div id="userAddresses" v-for="address in this.addressList" v-bind:key="address.id">
+				<div class="custom-control custom-radio">
+					<input type="radio" :id="'address_'+address.getId()" name="address" v-model="addressId" :checked="address.getPreferredAddress()" :value="address.getId()">
+					<label :for="'address_'+address.getId()">{{ address.getName() }} - {{address.id}}</label>
+				</div>
 			</div>
 		</div>
+
 		<div class="form-group">
-			<label for="cmdUserAddress">Versandadresse</label>
-			<select id="cmdUserAddress" class="form-control">
-				<option v-for="address in this.addressList" v-bind:key="address.id" :selected="address.getPreferredAddress()">{{ address.getName() }} {{ address.getPreferredAddress() }}</option>
-			</select>
+			<label class="orderAddressLabel" for="userCartItems">Artikel</label>
+			<cart-item v-for="item in this.cartItems" v-bind:key="item.getId()" v-bind:cartItem="item"></cart-item>
+		</div>
+
+		<div class="form-group">
+			<button class="btn btn-primary" v-on:click="submit">Jetzt kaufen</button>			
 		</div>
 	</div>
 </template>
@@ -26,6 +32,7 @@ export default {
 	data() {
 		return {
 			error: "",
+			addressId: null,
 			addressList: [],
 			cartItems: store.state.cartItems
 		}
@@ -37,6 +44,9 @@ export default {
 		'cart-item': CartItem,
 	},
 	methods: {
+		submit: function() {
+			service.saveOrder(this.addressId, this.cartItems);
+		},
 		getAddresses: function() {
 			if (this.addressList.length == 0) {
 				var sessionToken = localStorage.getItem("sessionToken");
@@ -50,6 +60,12 @@ export default {
 						if (response != undefined) {
 							response.data.forEach(element => {
 								var addressVO = new AddressVO(element.id, element.name, element.street, element.zipCode, element.city, element.preferredAddress);
+
+								// Set preferred user address
+								if (element.preferredAddress) {
+									this.addressId = element.id;
+								}
+
 								items.push(addressVO);
 							});
 						}

@@ -31,10 +31,6 @@ export default {
 		}
 	},
 	created: function() {
-		// if (store != undefined && store.state != undefined && store.state.cartItems != undefined) {
-		// 	this.cartItems = store.state.cartItems;
-		// }
-		// Load user addresses only once
 		this.getAddresses();
 	},
 	components: {
@@ -63,7 +59,7 @@ export default {
 
 						this.addressList = items;
 					}).catch ((e) => {
-						// Token is expired => get new token with refresh-token and restart search
+						// Token is expired => get new token with refresh-token and restart rest call
 						if (e.response.data != undefined && e.response.data.error != undefined && e.response.data.error == "invalid_token") {
 							service.refreshToken(this.tokenRefreshCallback);
 						}

@@ -10,6 +10,7 @@ new Vue({
 	template: '<App/>',
 	components: { App },
 
+	// Get cart items from session storage
 	beforeCreate() {
 		store.commit('init');
 	}

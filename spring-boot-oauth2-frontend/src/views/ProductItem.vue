@@ -6,7 +6,7 @@
 				<h5 class="card-title">{{ product.getName() }} ({{ product.getProductNo()}})</h5>
 				<p class="card-text">{{product.getDescription()}}</p>
 				<p class="card-text">{{product.getPrice()}}</p>
-				<a href="#" class="btn btn-primary" v-on:click="submit(product)">In den Warenkorb</a>
+				<button class="btn btn-primary" v-on:click="submit(product)">In den Warenkorb</button>
 			</div>
 		</div>
 	</div>
@@ -14,32 +14,14 @@
 
 <script>
 import store from '../store';
-import ProductVO from '../model/ProductVO.js';
-import CartItemVO from '../model/CartItemVO.js';
 
 export default {
 	props: ["product"],
 	methods: {
 		submit: function(item) {
 			store.commit("changeItem", item);
-			/*
-			var products = store.state.cartItems;
-			var exists = false;
 
-			products.forEach(cartItem => {
-				if (cartItem.item.getId() == item.id) {
-					cartItem.addQuantity(1);
-					exists = true;
-					return
-				}
-			});
-
-			if (!exists) {
-				var newProduct = new CartItemVO(item.getId(), item, 1);
-				store.commit("addToCart", newProduct);
-			}
-			*/
-
+			// Send event to parent
 			this.$emit('addItem');
 		}
 	}

@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import ProductItem from './ProductItem.vue'
 import ProductVO from '../model/ProductVO.js';
 import service from '../service'

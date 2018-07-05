@@ -1,4 +1,5 @@
 import axios from 'axios';
+import router from '../router';
 
 export default {
 	login: async function(login, password) {
@@ -51,6 +52,10 @@ export default {
 					callback();
 				}
 			}
+		}).catch ((e) => {
+			// Refresh token is expired due to database restart
+			alert("Die Sitzung ist abgelaufen, bitte loggen Sie sich erneut ein");
+			router.push("/login");
 		});
 	},
 	search:  async function(search, token) {

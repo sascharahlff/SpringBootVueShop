@@ -21,6 +21,8 @@ export default {
 	props: ["product"],
 	methods: {
 		submit: function(item) {
+			store.commit("changeItem", item);
+			/*
 			var products = store.state.cartItems;
 			var exists = false;
 
@@ -36,6 +38,7 @@ export default {
 				var newProduct = new CartItemVO(item.getId(), item, 1);
 				store.commit("addToCart", newProduct);
 			}
+			*/
 
 			this.$emit('addItem');
 		}

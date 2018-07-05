@@ -13,13 +13,15 @@ import router from '../router';
 export default {
 	data() {
 		return {
-			cartItems: []
+			cartItems: store.state.cartItems//[]
 		}
 	},
 	created: function() {
-		if (store != undefined && store.state != undefined && store.state.cartItems != undefined) {
-			this.cartItems = store.state.cartItems;
-		}
+		console.log(store.state.cartItems);
+		// TODO
+		// if (store != undefined && store.state != undefined && store.state.cartItems != undefined) {
+		// 	this.cartItems = store.state.cartItems;
+		// }
 	},
 	components: {
 		'cart-item': CartItem,

@@ -46,7 +46,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 		address.setStreet("Speersort 10");
 		address.setZipCode("20095");
 		address.setCity("Hamburg");
-		address.setPreferredAddress(true);
+		address.setPreferredAddress(false);
 		addresses.add(address);
 
 		address = new Address();
@@ -55,7 +55,7 @@ public class SpringJPABootstrap implements ApplicationListener<ContextRefreshedE
 		address.setStreet("Schuhmacherort 2");
 		address.setZipCode("25746");
 		address.setCity("Heide");
-		address.setPreferredAddress(false);
+		address.setPreferredAddress(true);
 		addresses.add(address);
 
 		user.setAddresses(addresses);

@@ -7,7 +7,7 @@ import de.itemis.auth.domain.UserDetails;
 import de.itemis.auth.domain.jpa.User;
 
 @Component
-public class UserDetailsConverter implements Converter<de.itemis.auth.domain.jpa.User, UserDetails> {
+public class UserDetailsConverter implements Converter<User, UserDetails> {
 	@Override
 	public UserDetails convert(User user) {
 		UserDetails userDetails = new UserDetails();

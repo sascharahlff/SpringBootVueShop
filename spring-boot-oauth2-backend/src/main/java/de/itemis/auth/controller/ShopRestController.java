@@ -18,11 +18,14 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import de.itemis.auth.converter.OrderConverter;
 import de.itemis.auth.domain.OrderDTO;
 import de.itemis.auth.domain.jpa.Address;
 import de.itemis.auth.domain.jpa.Product;
 import de.itemis.auth.repository.AddressRepository;
+import de.itemis.auth.repository.OrderRepository;
 import de.itemis.auth.repository.ProductRepository;
+import de.itemis.auth.service.OrderService;
 
 @RestController
 @RequestMapping("/secured")
@@ -36,6 +39,9 @@ public class ShopRestController {
 	
 	@Autowired
 	ProductRepository productRepository;
+
+	@Autowired
+	OrderService orderService;
 
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(value = ADDRESS_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,22 +61,6 @@ public class ShopRestController {
 	@RequestMapping(value = ORDER_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody boolean saveOrder(@RequestParam("order") String order) {
-		System.out.println(order);
-		test(order);
-		
-		return true;
-	}
-	
-	private void test(String json) {
-		ObjectMapper mapper = new ObjectMapper();
-
-		try {
-			OrderDTO order = mapper.readValue(json, OrderDTO.class);
-			System.out.println(order.getUserId() +" - "+ order.getAddressId());
-			
-		} catch (JsonParseException e) {
-		} catch (JsonMappingException e) {
-		} catch (IOException e) {
-		}
+		return orderService.saveOrder(order);
 	}
 }

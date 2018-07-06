@@ -45,7 +45,9 @@ export default {
 	},
 	methods: {
 		submit: function() {
-			service.saveOrder(this.addressId, this.cartItems);
+			var userId = sessionStorage.getItem("userId");
+			var sessionToken = localStorage.getItem("sessionToken");
+			service.saveOrder(userId, this.addressId, this.cartItems, sessionToken);
 		},
 		getAddresses: function() {
 			if (this.addressList.length == 0) {
@@ -53,7 +55,8 @@ export default {
 
 				if (sessionToken != undefined) {
 					var self = this;
-					service.getAddressList(1, sessionToken)
+					var userId = sessionStorage.getItem("userId");
+					service.getAddressList(userId, sessionToken)
 					.then((response) => {
 						var items = [];
 

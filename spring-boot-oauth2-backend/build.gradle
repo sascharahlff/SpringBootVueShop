@@ -36,7 +36,8 @@ dependencies {
 	compile "org.springframework.boot:spring-boot-starter-security:" + springBootVersion
 	compile 'org.springframework.boot:spring-boot-starter-tomcat:' + springBootVersion
 	compile "org.springframework.boot:spring-boot-starter-web:" + springBootVersion
-	compile "org.springframework.security.oauth:spring-security-oauth2:" + oAuthVersion;
+	compile "org.springframework.security.oauth:spring-security-oauth2:" + oAuthVersion
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.0.1'
 
 	//compile 'org.springframework.boot:spring-boot-autoconfigure:' + springBootVersion
 	compile 'org.springframework.boot:spring-boot-starter-thymeleaf:' + springBootVersion

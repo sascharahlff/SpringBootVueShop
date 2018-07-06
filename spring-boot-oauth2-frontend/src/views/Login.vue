@@ -37,10 +37,10 @@ export default {
 			// Async call
 			service.login(this.user, this.password)
 			.then((response) => {
-				console.log("response: " + response);
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
 					localStorage.setItem("refreshToken", response.data.refresh_token);
+					sessionStorage.setItem("userId", response.data.user_id);
 					auth.setAuthenticated(true);
 					this.error = "";
 					router.push("/home")

@@ -94,22 +94,42 @@ export default {
 
 		return json;
 	},
-	saveOrder: function(addressId, cartItems) {
-		console.log("--- order ---");
-		var json = {
-			userId: 1,
-			addressId: addressId,
-			items: []
-		};
+	saveOrder: async function(userId, addressId, cartItems, token) {
+		var products = [];
 
-		cartItems.forEach(cartItem => {
-			json.items.push({
-				productId: cartItem.item.getId(),
-				quantity: cartItem.getQuantity()
-
-			});
+		cartItems.forEach(element => {
+			products.push(element.getItem());
 		});
 
-		console.log(json);
+console.log(products);
+
+		var o = {
+			userId: userId,
+			addressId: addressId,
+			products: products
+		};
+
+		var formData = new FormData();
+		formData.append('order', JSON.stringify(o));
+
+console.log(JSON.stringify(o));
+
+		await axios({
+			method: "POST",
+			baseURL: "http://localhost:8081/",
+			url: "secured/order",
+			headers: {
+				"Access-Control-Allow-Origin": "http://localhost:8080",
+				"Accept": "application/json",
+				"Authorization": "Bearer" + token
+			},
+			data: formData
+		})
+		.catch ((e) => {
+			console.log("--- error ---");
+			console.log(e);
+		});
+
+		//return json;
 	}
 }

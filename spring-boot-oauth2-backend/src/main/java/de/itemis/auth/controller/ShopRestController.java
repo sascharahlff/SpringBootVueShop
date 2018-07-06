@@ -1,5 +1,6 @@
 package de.itemis.auth.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import de.itemis.auth.domain.Address;
+import de.itemis.auth.domain.Order;
 import de.itemis.auth.domain.Product;
 import de.itemis.auth.repository.AddressRepository;
 import de.itemis.auth.repository.ProductRepository;
@@ -23,6 +29,7 @@ import de.itemis.auth.repository.ProductRepository;
 public class ShopRestController {
 	private static final String ADDRESS_PATH = "/address";
 	private static final String PRODUCTS_PATH = "/products";
+	private static final String ORDER_PATH = "/order";
 
 	@Autowired
 	AddressRepository addressRepository;
@@ -42,5 +49,34 @@ public class ShopRestController {
 	@ResponseStatus(value = HttpStatus.OK)
 	public @ResponseBody List<Product> getProducts(@RequestParam("search") String search) {
 		return productRepository.search(search);
+	}
+
+	@CrossOrigin(origins = "http://localhost:8080")
+	@RequestMapping(value = ORDER_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(value = HttpStatus.OK)
+	//public @ResponseBody boolean saveOrder(@RequestParam("userid") Long userId, @RequestParam("addressid") Long addressId, @RequestParam("products") Object[] products) {
+	public @ResponseBody boolean saveOrder(@RequestParam("order") String order) {
+		System.out.println(order);
+		test(order);
+		
+		return true;
+	}
+	
+	private void test(String json) {
+		ObjectMapper mapper = new ObjectMapper();
+
+		try {
+			Order order = mapper.readValue(json, Order.class);
+			System.out.println(order.getUserId() +" - "+ order.getAddressId());
+		} catch (JsonParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

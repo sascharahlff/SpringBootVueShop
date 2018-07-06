@@ -1,4 +1,4 @@
-package de.itemis.auth.domain;
+package de.itemis.auth.domain.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,10 +26,6 @@ public class User {
 	private String password;
 	private String passwordHash;
 	private boolean enabled = true;
-
-	@JsonIgnore
-	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-	private List<Address> addresses = new ArrayList<Address>();
 
 	public Long getId() {
 		return id;
@@ -69,13 +65,5 @@ public class User {
 
 	public boolean isEnabled() {
 		return this.enabled;
-	}
-
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(List<Address> address) {
-		this.addresses = address;
 	}
 }

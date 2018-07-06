@@ -1,20 +1,20 @@
 package de.itemis.auth.domain;
 
-public class Order {
+public class OrderDTO {
 	private Long userId;
 	private Long addressId;
-	private Product[] products;
+	private OrderItemDTO[] items;
 	
 	// Default constructor required for jackson object mapper
-	public Order() {
-		
+	public OrderDTO() {
+		super();
 	}
 	
-	public Order(final Long userId, final Long addressId) {
+	public OrderDTO(final Long userId, final Long addressId) {
 		this.userId = userId;
 		this.addressId = addressId;
 	}
-
+		
 	public Long getUserId() {
 		return userId;
 	}
@@ -31,11 +31,11 @@ public class Order {
 		this.addressId = addressId;
 	}
 
-	public Product[] getProducts() {
-		return products;
+	public OrderItemDTO[] getItems() {
+		return items;
 	}
 
-	public void setProducts(Product[] products) {
-		this.products = products;
+	public void setItems(OrderItemDTO[] items) {
+		this.items = items;
 	}
 }

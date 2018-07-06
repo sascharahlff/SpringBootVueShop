@@ -6,8 +6,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import de.itemis.auth.converter.UserDetailsConverter;
-import de.itemis.auth.domain.User;
 import de.itemis.auth.domain.UserDetails;
+import de.itemis.auth.domain.jpa.User;
 import de.itemis.auth.repository.UserRepository;
 
 @Service

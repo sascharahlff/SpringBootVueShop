@@ -1,4 +1,4 @@
-package de.itemis.auth.domain;
+package de.itemis.auth.domain.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,8 +38,8 @@ public class Address {
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
-
+    private User user;
+ 
 	public String getStreet() {
 		return street;
 	}

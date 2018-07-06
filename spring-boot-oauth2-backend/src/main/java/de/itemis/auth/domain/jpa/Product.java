@@ -1,4 +1,4 @@
-package de.itemis.auth.domain;
+package de.itemis.auth.domain.jpa;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

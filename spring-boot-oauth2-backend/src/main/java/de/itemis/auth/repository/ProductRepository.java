@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
-import de.itemis.auth.domain.Product;
+import de.itemis.auth.domain.jpa.Product;
 
 public interface ProductRepository extends CrudRepository<Product, Long> {
 	List<Product> findAll();

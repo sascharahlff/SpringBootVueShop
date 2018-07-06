@@ -1,5 +1,7 @@
 import axios from 'axios';
 import router from '../router';
+import OrderVO from '../model/OrderVO';
+import OrderItemVO from '../model/OrderItemVO';
 
 export default {
 	login: async function(login, password) {
@@ -95,26 +97,21 @@ export default {
 		return json;
 	},
 	saveOrder: async function(userId, addressId, cartItems, token) {
-		var products = [];
+		var order = new OrderVO(userId, addressId);
 
 		cartItems.forEach(element => {
-			products.push(element.getItem());
+			var product = element.getItem();
+
+			if (product != null) {
+				var orderItem = new OrderItemVO(product.getId(), product.getPrice());
+				order.addItem(orderItem);
+			}
 		});
 
-console.log(products);
-
-		var o = {
-			userId: userId,
-			addressId: addressId,
-			products: products
-		};
-
 		var formData = new FormData();
-		formData.append('order', JSON.stringify(o));
+		formData.append('order', JSON.stringify(order));
 
-console.log(JSON.stringify(o));
-
-		await axios({
+		var json = await axios({
 			method: "POST",
 			baseURL: "http://localhost:8081/",
 			url: "secured/order",
@@ -124,12 +121,8 @@ console.log(JSON.stringify(o));
 				"Authorization": "Bearer" + token
 			},
 			data: formData
-		})
-		.catch ((e) => {
-			console.log("--- error ---");
-			console.log(e);
 		});
 
-		//return json;
+		return json;
 	}
 }

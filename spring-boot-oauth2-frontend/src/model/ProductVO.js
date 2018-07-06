@@ -1,7 +1,7 @@
 export default class ProductVO {
 	constructor(id, productNo, name, description, image, price) {
 		this.id = id;
-		this.productNo = 
+		this.productNo = productNo
 		this.name = name;
 		this.description = description;
 		this.image = image;

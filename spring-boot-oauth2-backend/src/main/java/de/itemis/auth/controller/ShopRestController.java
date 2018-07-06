@@ -18,9 +18,9 @@ import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import de.itemis.auth.domain.Address;
-import de.itemis.auth.domain.Order;
-import de.itemis.auth.domain.Product;
+import de.itemis.auth.domain.OrderDTO;
+import de.itemis.auth.domain.jpa.Address;
+import de.itemis.auth.domain.jpa.Product;
 import de.itemis.auth.repository.AddressRepository;
 import de.itemis.auth.repository.ProductRepository;
 
@@ -54,7 +54,6 @@ public class ShopRestController {
 	@CrossOrigin(origins = "http://localhost:8080")
 	@RequestMapping(value = ORDER_PATH, method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(value = HttpStatus.OK)
-	//public @ResponseBody boolean saveOrder(@RequestParam("userid") Long userId, @RequestParam("addressid") Long addressId, @RequestParam("products") Object[] products) {
 	public @ResponseBody boolean saveOrder(@RequestParam("order") String order) {
 		System.out.println(order);
 		test(order);
@@ -66,17 +65,12 @@ public class ShopRestController {
 		ObjectMapper mapper = new ObjectMapper();
 
 		try {
-			Order order = mapper.readValue(json, Order.class);
+			OrderDTO order = mapper.readValue(json, OrderDTO.class);
 			System.out.println(order.getUserId() +" - "+ order.getAddressId());
+			
 		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 }

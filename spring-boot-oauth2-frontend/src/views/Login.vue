@@ -9,13 +9,14 @@
 			<label for="userPassword">Password</label>
 			<input class="form-control" id="userPassword" type="password" v-model="password" placeholder="Your password">
 		</div>
-		<button class="btn btn-primary" v-on:click="login">login</button>
+		<button class="btn btn-primary" v-on:click="login">Login</button>
 	</div>
 </template>
 
 <script>
-import {router} from '../main'
 import auth from '../auth'
+import router from '../router'
+import service from '../service'
 
 export default {
 	data() {
@@ -25,25 +26,32 @@ export default {
 			error: ""
 		}
 	},
+	created: function() {
+		// Remove session when login is called
+		if (auth.isAuthenticated()) {
+			auth.setAuthenticated(false);
+		}
+	},
 	methods: {
 		login: function() {
 			// Async call
-			auth.login(this.user, this.password)
+			service.login(this.user, this.password)
 			.then((response) => {
 				if (response != undefined && response.data != undefined && response.data.access_token != undefined) {
 					localStorage.setItem("sessionToken", response.data.access_token);
-					auth.user.authenticated = true;
-					localStorage.removeItem("basketItems");
+					localStorage.setItem("refreshToken", response.data.refresh_token);
+					sessionStorage.setItem("userId", response.data.user_id);
+					auth.setAuthenticated(true);
 					this.error = "";
 					router.push("/home")
 				}
 				else {
-					this.error = "Bad credentials";
-					auth.user.authenticated = false;
+					this.error = "Die Anmeldedaten waren fehlerhaft.";
+					auth.setAuthenticated(false);
 				}
 			}).catch ((e) => {
-				this.error = "Bad credentials";
-				auth.user.authenticated = false;
+				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
+				auth.setAuthenticated(false);
 			});
 		}
 	}

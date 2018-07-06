@@ -1,30 +1,25 @@
-import axios from 'axios';
+import store from '../store';
 
 export default {
 	user: {
 		authenticated: false
 	},
-	login: async function(login, password) {
-		var formData = new FormData();
-		formData.append('username', login);
-		formData.append('password', password);
-		formData.append('grant_type', 'password');
+	isAuthenticated: function() {
+		var state = sessionStorage.getItem("authenticated");
+		
+		if (state === null) {
+			return false;
+		}
+		
+		this.user.authenticated = JSON.parse(state);
+		return JSON.parse(state);
+	},
+	setAuthenticated: function(state) {
+		sessionStorage.setItem("authenticated", state);
+		this.user.authenticated = state;
 
-		var json = await axios({
-			method: "POST",
-			baseURL: "http://localhost:8081/",
-			url: "oauth/token",
-			auth: {
-				username: "itemis",
-				password: "secret"
-			},
-			headers: {
-				"Access-Control-Allow-Origin": "http://localhost:8080",
-				"Content-type": "application/x-www-form-urlencoded; charset=utf-8"
-			},
-			data: formData
-		});
-
-		return json;
+		if (!state) {
+			store.commit("clear");
+		}
 	}
 }

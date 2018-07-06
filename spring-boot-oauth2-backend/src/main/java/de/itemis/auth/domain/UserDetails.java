@@ -7,12 +7,21 @@ import org.springframework.security.core.GrantedAuthority;
 public class UserDetails implements org.springframework.security.core.userdetails.UserDetails {
 	private static final long serialVersionUID = 1L;
 
+	private Long userId;
 	private String username;
 	private String password;
 	private boolean accountExpired;
 	private boolean accountLocked;
 	private boolean credentialsExpired;
 	private boolean enabled = true;
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
 
 	@Override
 	public String getUsername() {
@@ -31,7 +40,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	@Override
 	public boolean isAccountNonExpired() {
 		return accountExpired;
@@ -40,7 +49,7 @@ public class UserDetails implements org.springframework.security.core.userdetail
 	public void setAccountExpired(boolean accountExpired) {
 		this.accountExpired = accountExpired;
 	}
-	
+
 	@Override
 	public boolean isAccountNonLocked() {
 		return accountLocked;

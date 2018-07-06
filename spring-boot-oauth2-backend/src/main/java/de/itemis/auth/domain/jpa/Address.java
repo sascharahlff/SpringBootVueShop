@@ -1,4 +1,4 @@
-package de.itemis.auth.domain;
+package de.itemis.auth.domain.jpa;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,19 +22,24 @@ public class Address {
 	@Column(name = "address_id")
 	private Long id;
 	@NotNull
+	@Size(max = 100)
+	private String name;
+	@NotNull
+	@Size(max = 100)
 	private String street;
 	@NotNull
 	@Size(max = 5)
 	private String zipCode;
 	@NotNull
+	@Size(max = 100)
 	private String city;
 	private boolean preferredAddress;
-	
+
 	@JsonIgnore
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
-	private User user;
-
+	@JoinColumn(name = "user_id", nullable = false)
+    private User user;
+ 
 	public String getStreet() {
 		return street;
 	}
@@ -45,6 +50,14 @@ public class Address {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public void setStreet(String street) {
@@ -78,7 +91,7 @@ public class Address {
 	public User getUser() {
 		return user;
 	}
-	
+
 	public void setUser(User user) {
 		this.user = user;
 	}

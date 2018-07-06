@@ -53,21 +53,4 @@ CREATE TABLE OAUTH_APPROVALS (
 INSERT INTO OAUTH_CLIENT_DETAILS
 	(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
  VALUES
- 	('itemis', 'resource-server-rest-api', '$2a$04$RqhUV763hw5GInigRbcJjeLMTaZJtaOO4..xlKtHIO81vICHqM0xi', 'read,write', 'password,authorization_code,refresh_token,implicit', 'USER', 10800, 2592000);
-
-/*
-INSERT INTO OAUTH_CLIENT_DETAILS
-	(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
- VALUES
- 	('user', 'resource-server-rest-api', '$2a$04$XTBVpMZhkKYdBewIZs6/IORJwDYBbp6Pa3mjLA.iTY0wLZjXrwTKS', 'read,write', 'password,authorization_code,refresh_token,implicit', 'USER', 10800, 2592000);
-
-INSERT INTO OAUTH_CLIENT_DETAILS
-	(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
- VALUES
- 	('read-client', 'resource-server-rest-api', '$2a$04$XTBVpMZhkKYdBewIZs6/IORJwDYBbp6Pa3mjLA.iTY0wLZjXrwTKS', 'read', 'password,authorization_code,refresh_token,implicit', 'USER', 10800, 2592000);
-
-INSERT INTO OAUTH_CLIENT_DETAILS
-	(CLIENT_ID, RESOURCE_IDS, CLIENT_SECRET, SCOPE, AUTHORIZED_GRANT_TYPES, AUTHORITIES, ACCESS_TOKEN_VALIDITY, REFRESH_TOKEN_VALIDITY)
- VALUES
- 	('write-client', 'resource-server-rest-api', '$2a$04$XTBVpMZhkKYdBewIZs6/IORJwDYBbp6Pa3mjLA.iTY0wLZjXrwTKS', 'read,write', 'password,authorization_code,refresh_token,implicit', 'USER', 10800, 2592000);
-*/
+ 	('itemis', 'resource-server-rest-api', '$2a$04$RqhUV763hw5GInigRbcJjeLMTaZJtaOO4..xlKtHIO81vICHqM0xi', 'read,write', 'password,authorization_code,refresh_token,implicit', 'USER', 3600, 2592000);

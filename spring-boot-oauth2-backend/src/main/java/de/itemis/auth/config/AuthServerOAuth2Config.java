@@ -17,6 +17,7 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.error.OAuth2AccessDeniedHandler;
+import org.springframework.security.oauth2.provider.token.TokenEnhancer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
 import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
 
@@ -47,11 +48,17 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
 	public OAuth2AccessDeniedHandler oauthAccessDeniedHandler() {
 		return new OAuth2AccessDeniedHandler();
 	}
+	
+	@Bean
+	public TokenEnhancer tokenEnhancer() {
+		return new AuthTokenEnhancer();
+	}
 
 	@Override
 	public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
-		oauthServer.tokenKeyAccess("permitAll()").checkTokenAccess("isAuthenticated()")
-				.passwordEncoder(oauthClientPasswordEncoder);
+		oauthServer.tokenKeyAccess("permitAll()")
+			.checkTokenAccess("isAuthenticated()")
+			.passwordEncoder(oauthClientPasswordEncoder);
 	}
 
 	@Override
@@ -61,7 +68,9 @@ public class AuthServerOAuth2Config extends AuthorizationServerConfigurerAdapter
 
 	@Override
 	public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
-		endpoints.tokenStore(tokenStore()).authenticationManager(authenticationManager)
-				.userDetailsService(userDetailsService);
+		endpoints.tokenStore(tokenStore())
+			.authenticationManager(authenticationManager)
+			.userDetailsService(userDetailsService)
+			.tokenEnhancer(tokenEnhancer());
 	}
 }

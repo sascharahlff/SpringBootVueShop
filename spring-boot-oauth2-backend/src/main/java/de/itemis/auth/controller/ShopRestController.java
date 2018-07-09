@@ -1,6 +1,5 @@
 package de.itemis.auth.controller;
 
-import java.io.IOException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,16 +13,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import de.itemis.auth.converter.OrderConverter;
-import de.itemis.auth.domain.OrderDTO;
 import de.itemis.auth.domain.jpa.Address;
 import de.itemis.auth.domain.jpa.Product;
 import de.itemis.auth.repository.AddressRepository;
-import de.itemis.auth.repository.OrderRepository;
 import de.itemis.auth.repository.ProductRepository;
 import de.itemis.auth.service.OrderService;
 

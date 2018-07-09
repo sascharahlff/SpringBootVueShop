@@ -27,6 +27,7 @@ import AddressVO from '../model/AddressVO.js';
 import CartItem from './CartItem.vue'
 import service from '../service'
 import store from '../store';
+import router from '../router/index.js';
 
 export default {
 	data() {
@@ -47,7 +48,18 @@ export default {
 		submit: function() {
 			var userId = sessionStorage.getItem("userId");
 			var sessionToken = localStorage.getItem("sessionToken");
-			service.saveOrder(userId, this.addressId, this.cartItems, sessionToken);
+			var self = this;
+
+			service.saveOrder(userId, this.addressId, this.cartItems, sessionToken)
+			.then((response) => {
+				if (response.data == true) {
+					store.commit("clear");
+					router.push("/products")
+				}
+				else {
+					self.error = "Beim Speichern Ihrer Bestellung ist ein Fehler aufgetreten, senden Sie den Warenkorb erneut ab."
+				}
+			})
 		},
 		getAddresses: function() {
 			if (this.addressList.length == 0) {

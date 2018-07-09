@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -34,47 +35,39 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	OrderItemConverter orderItemConverter;
-	
+
 	@Override
+	@Transactional
 	public boolean saveOrder(String json) {
-		// Convert JSON to OrderDTO
-		
 		try {
+			// Convert JSON to OrderDTO
 			OrderDTO dto = mapper.readValue(json, OrderDTO.class);
-			
+
 			if (dto != null) {
 				Order order = orderConverter.convert(dto);
 				OrderItemDTO[] items = dto.getItems();
 
 				if (order != null) {
 					orderRepository.save(order);
-					
+
+					// Save order positions
 					if (items != null) {
 						for (OrderItemDTO item : items) {
 							OrderItem orderItem = orderItemConverter.convert(item);
 							orderItem.setOrder(order);
-							
+
 							if (orderItem != null) {
 								orderItemRepository.save(orderItem);
 							}
 						}
 					}
 				}
-				
 			}
-		
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 
-		
-		return false;
+			return true;
+		}
+		catch (Exception e) {
+			return false;
+		}
 	}
 }

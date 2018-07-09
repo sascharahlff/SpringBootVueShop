@@ -1,6 +1,19 @@
 <template>
 	<div class="container">
-		<cart-item v-for="item in this.cartItems" v-bind:key="item.getId()" v-bind:cartItem="item"></cart-item>
+		<table class="table">
+			<thead>
+			<tr>
+				<th scope="col">Nr.</th>
+				<th scope="col">Produkt</th>
+				<th class="text-right" scope="col">Preis</th>
+				<th class="text-right" scope="col">Menge</th>
+			</tr>
+			</thead>
+			<tbody>
+				<cart-item v-for="item in this.cartItems" v-bind:key="item.getId()" v-bind:cartItem="item"></cart-item>
+			</tbody>
+		</table>
+
 		<button class="btn btn-primary" v-if="this.cartItems.length>0" v-on:click="showOrderOverview">Zur Kasse</button>
 	</div>
 </template>

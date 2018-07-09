@@ -6,16 +6,28 @@
 			<div id="userAddresses" v-for="address in this.addressList" v-bind:key="address.id">
 				<div class="custom-control custom-radio">
 					<input type="radio" :id="'address_'+address.getId()" name="address" v-model="addressId" :checked="address.getPreferredAddress()" :value="address.getId()">
-					<label :for="'address_'+address.getId()">{{ address.getName() }} - {{address.id}}</label>
+					<label :for="'address_'+address.getId()">{{ address.getName() }} - {{address.getStreet()}}, {{address.getZipCode()}} {{address.getCity()}} </label>
 				</div>
 			</div>
 		</div>
-
-		<div class="form-group">
+		
+		<div>
 			<label class="orderAddressLabel" for="userCartItems">Artikel</label>
-			<cart-item v-for="item in this.cartItems" v-bind:key="item.getId()" v-bind:cartItem="item"></cart-item>
+			<table class="table">
+				<thead>
+				<tr>
+					<th scope="col">Nr.</th>
+					<th scope="col">Produkt</th>
+					<th class="text-right" scope="col">Preis</th>
+					<th class="text-right" scope="col">Menge</th>
+				</tr>
+				</thead>
+				<tbody>
+					<cart-item v-for="item in this.cartItems" v-bind:key="item.getId()" v-bind:cartItem="item"></cart-item>
+				</tbody>
+			</table>
 		</div>
-
+		
 		<div class="form-group">
 			<button class="btn btn-primary" v-on:click="submit">Jetzt kaufen</button>			
 		</div>
@@ -46,28 +58,32 @@ export default {
 	},
 	methods: {
 		submit: function() {
-			var userId = sessionStorage.getItem("userId");
-			var sessionToken = localStorage.getItem("sessionToken");
+			var userId = this.getUserId();
+			var sessionToken = this.getSessionToken();
 			var self = this;
 
-			service.saveOrder(userId, this.addressId, this.cartItems, sessionToken)
-			.then((response) => {
-				if (response.data == true) {
-					store.commit("clear");
-					router.push("/products")
-				}
-				else {
-					self.error = "Beim Speichern Ihrer Bestellung ist ein Fehler aufgetreten, senden Sie den Warenkorb erneut ab."
-				}
-			})
+			if (userId != null && sessionToken != null) {
+				service.saveOrder(userId, this.addressId, this.cartItems, sessionToken)
+				.then((response) => {
+					if (response.data == true) {
+						// Show success message in Product.vue
+						sessionStorage.setItem("successInfo", "Ihre Bestellung wurde aufgenommen.");
+						store.commit("clear");
+						router.push("/products");
+					}
+					else {
+						self.error = "Beim Speichern Ihrer Bestellung ist ein Fehler aufgetreten, senden Sie den Warenkorb erneut ab."
+					}
+				})
+			}
 		},
 		getAddresses: function() {
 			if (this.addressList.length == 0) {
-				var sessionToken = localStorage.getItem("sessionToken");
+				var userId = this.getUserId();
+				var sessionToken = this.getSessionToken();
+				var self = this;
 
-				if (sessionToken != undefined) {
-					var self = this;
-					var userId = sessionStorage.getItem("userId");
+				if (userId != null && sessionToken != null) {
 					service.getAddressList(userId, sessionToken)
 					.then((response) => {
 						var items = [];
@@ -105,6 +121,24 @@ export default {
 		tokenRefreshCallback: function() {
 			// Restart getAdresses() with new token
 			this.getAddresses();
+		},
+		getUserId() {
+			var userId = sessionStorage.getItem("userId");
+			
+			if (userId == null) {
+				this.error = "Keine User-Session gefunden, bitte loggen Sie sich erneut ein.";
+			}
+
+			return userId;
+		},
+		getSessionToken() {
+			var token = localStorage.getItem("sessionToken");
+
+			if (token == null) {
+				this.error = "Kein Session-Token gefunden, bitte loggen Sie sich erneut ein.";
+			}
+
+			return token;
 		}
 	}
 }

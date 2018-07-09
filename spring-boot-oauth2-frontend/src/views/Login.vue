@@ -2,11 +2,11 @@
 	<div class="container">
 		<div v-if="error != ''" class="alert alert-danger" role="alert">{{ error }}</div>
 		<div class="form-group">
-			<label for="userLogin">Login</label>
+			<label class="bold" for="userLogin">Login</label>
 			<input class="form-control" id="userLogin" v-model="user" placeholder="Your login name">
 		</div>
 		<div class="form-group">
-			<label for="userPassword">Password</label>
+			<label class="bold" for="userPassword">Password</label>
 			<input class="form-control" id="userPassword" type="password" v-model="password" placeholder="Your password">
 		</div>
 		<button class="btn btn-primary" v-on:click="login">Login</button>
@@ -34,6 +34,7 @@ export default {
 	},
 	methods: {
 		login: function() {
+			var self = this;
 			// Async call
 			service.login(this.user, this.password)
 			.then((response) => {
@@ -46,13 +47,15 @@ export default {
 					router.push("/home")
 				}
 				else {
-					this.error = "Die Anmeldedaten waren fehlerhaft.";
-					auth.setAuthenticated(false);
+					self.showError();
 				}
 			}).catch ((e) => {
-				this.error = "Beim Login ist ein interner Fehler aufgetreten.";
-				auth.setAuthenticated(false);
+				self.showError();
 			});
+		},
+		showError: function() {
+			this.error = "Beim Login ist ein Fehler aufgetreten, bitte korrigieren Sie Ihre Anmeldedaten.";
+			auth.setAuthenticated(false);
 		}
 	}
 }

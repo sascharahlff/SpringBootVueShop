@@ -1,11 +1,10 @@
 <template>
-<div xclass="container" style="clear:both">
-	<div class="row">
-		<div class="col-sm-2">{{ this.cartItem.getItem().getName() }}</div>
-		<div class="col-sm-2">{{ this.cartItem.getQuantity() }}</div>
-		<div class="col-sm-2">{{ this.cartItem.getItem().getPrice() }}</div>
-	</div>
-</div>
+	<tr>
+		<td>{{ this.cartItem.getItem().getProductNo() }}</td>
+		<td>{{ this.cartItem.getItem().getName() }}</td>
+		<td class="text-right">{{ this.cartItem.getItem().getPrice() }}</td>
+		<td class="text-right">{{ this.cartItem.getQuantity() }}</td>
+	</tr>
 </template>
 
 <script>

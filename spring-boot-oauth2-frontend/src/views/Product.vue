@@ -27,7 +27,16 @@ export default {
 			searchString: "",
 			products: [],
 			searchTimer: null,
-			removeTimer: null
+			infoTimer: null
+		}
+	},
+	created: function() {
+		var message = sessionStorage.getItem("successInfo");
+
+		if (message != null) {
+			this.info = message;
+			sessionStorage.removeItem("successInfo");
+			this.clearInfo();
 		}
 	},
 	watch: {
@@ -49,9 +58,9 @@ export default {
 		},
 		startSearch: function() {
 			this.searchTimer.stop();
-			var sessionToken = localStorage.getItem("sessionToken");
+			var sessionToken = this.getSessionToken();
 
-			if (sessionToken != undefined) {
+			if (sessionToken != null) {
 				this.products = [];
 				var self = this;
 
@@ -61,7 +70,7 @@ export default {
 
 					if (response != undefined) {
 						response.data.forEach(element => {
-							var productVO = new ProductVO(element.id, element.productVo, element.name, element.description, element.image, element.price);
+							var productVO = new ProductVO(element.id, element.productNo, element.name, element.description, element.image, element.price);
 							items.push(productVO);
 						});
 					}
@@ -96,14 +105,23 @@ export default {
 			this.clearInfo();
 		},
 		clearInfo: function() {
-			if (this.removeTimer == null) {1
-				this.removeTimer = new Timer(2000, this.clearInfoHandler);
+			if (this.infoTimer == null) {1
+				this.infoTimer = new Timer(2000, this.clearInfoHandler);
 			}
 
-			this.removeTimer.start();
+			this.infoTimer.start();
 		},
 		clearInfoHandler: function() {
 			this.info = "";
+		},
+		getSessionToken() {
+			var token = localStorage.getItem("sessionToken");
+
+			if (token == null) {
+				this.error = "Kein Session-Token gefunden, bitte loggen Sie sich erneut ein.";
+			}
+
+			return token;
 		}
 	}
 }

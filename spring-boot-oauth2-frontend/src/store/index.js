@@ -10,8 +10,7 @@ const store = new Vuex.Store({
 		cartItems: []
 	},
 	mutations: {
-		init (stazr) {
-			console.log("init");
+		init (state) {
 			if (sessionStorage.getItem("cart")) {
 				var sessionState = JSON.parse(sessionStorage.getItem("cart"));
 
@@ -21,7 +20,6 @@ const store = new Vuex.Store({
 						var product = new ProductVO(obj.id, obj.productNo, obj.name, obj.description, obj.image, obj.price);
 						var item = new CartItemVO(cartItem.id, product, cartItem.quantity);
 						this.state.cartItems.push(item);
-						console.log(this.cartItems);
 					})
 
 					this.commit("saveCartToSession");
